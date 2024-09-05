@@ -1,6 +1,10 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 //route handler
 app.get("/", (req, res) => {
@@ -17,26 +21,26 @@ app.get("/", (req, res) => {
 });
 
 //Middleware
-const bodyParser = (req, res, next) => {
-  // get access to email, password, passwordConfirmation
-  if (req.method === "POST") {
-    req.on("data", data => {
-      const parsed = data.toString("utf8").split("&");
-      const formData = {};
+// const bodyParser = (req, res, next) => {
+//   // get access to email, password, passwordConfirmation
+//   if (req.method === "POST") {
+//     req.on("data", data => {
+//       const parsed = data.toString("utf8").split("&");
+//       const formData = {};
 
-      for(let pair of parsed) {
-        const [key, value] = pair.split("=");
-        formData[key] = value;
-      }
-      req.body = formData;
-      next();
-    });
-  } else {
-    next();
-  }
-};
+//       for(let pair of parsed) {
+//         const [key, value] = pair.split("=");
+//         formData[key] = value;
+//       }
+//       req.body = formData;
+//       next();
+//     });
+//   } else {
+//     next();
+//   }
+// };
 
-app.post("/", bodyParser, (req, res) => {
+app.post("/", (req, res) => {
   console.log(req.body);
   res.send("Account created!!!");
 });
