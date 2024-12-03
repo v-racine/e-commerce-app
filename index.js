@@ -1,5 +1,6 @@
 const express = require("express");
-const bodyParser = require("body-parser");
+const usersRepo = require("./repositories/usersJSON")
+//const bodyParser = require("body-parser");
 
 const app = express();
 
@@ -20,7 +21,9 @@ app.get("/", (req, res) => {
   `);
 });
 
-//Middleware
+//Middleware: Functions that does some kind of processing on the `req` and `res` objects before we actually call our route handlers.
+//`next()`: callback function provided by Express framework that runs the actual route handler callback when our middlewars is done doing its business.
+
 // const bodyParser = (req, res, next) => {
 //   // get access to email, password, passwordConfirmation
 //   if (req.method === "POST") {
@@ -40,8 +43,18 @@ app.get("/", (req, res) => {
 //   }
 // };
 
-app.post("/", (req, res) => {
-  console.log(req.body);
+app.post("/", async (req, res) => {
+  const { email, password, passwordConfirmation } = req.body;
+
+  const existingUser = await usersRepo.getOneBy({ email });
+  if (existingUser) {
+    return res.send("Email in use");
+  }
+
+  if (password !== passwordConfirmation) {
+    return res.send("Password must match");
+  }
+
   res.send("Account created!!!");
 });
 
@@ -49,3 +62,5 @@ app.post("/", (req, res) => {
 app.listen(3000, () => {
   console.log("Listening on port 3000...");
 });
+
+//`npm run dev` to run the program
