@@ -1,5 +1,5 @@
-const express = require("express");
-const usersRepo = require("./repositories/usersJSON")
+const express = require('express');
+const usersRepo = require('./repositories/usersJSON');
 //const bodyParser = require("body-parser");
 
 const app = express();
@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //route handler
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.send(`
     <div>
       <form method="POST">
@@ -43,24 +43,24 @@ app.get("/", (req, res) => {
 //   }
 // };
 
-app.post("/", async (req, res) => {
+app.post('/', async (req, res) => {
   const { email, password, passwordConfirmation } = req.body;
 
   const existingUser = await usersRepo.getOneBy({ email });
   if (existingUser) {
-    return res.send("Email in use");
+    return res.send('Email in use');
   }
 
   if (password !== passwordConfirmation) {
-    return res.send("Password must match");
+    return res.send('Password must match');
   }
 
-  res.send("Account created!!!");
+  res.send('Account created!!!');
 });
 
 //listener
 app.listen(3000, () => {
-  console.log("Listening on port 3000...");
+  console.log('Listening on port 3000...');
 });
 
 //`npm run dev` to run the program
