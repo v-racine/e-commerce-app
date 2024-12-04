@@ -4,16 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon ./src/index.js",
+    "fmt": "npx prettier --write ./src ./tests",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.21.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4"
+    "nodemon": "~3.1.4",
+    "prettier": "~3.4.1",
+    "jest": "~29.7.0",
+    "supertest": "~7.0.0"
   }
 }
