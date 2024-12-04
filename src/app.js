@@ -1,6 +1,8 @@
 const express = require('express');
 const HealthService = require('./services/healthService');
 const HealthController = require('./controllers/healthController');
+const UsersService = require('./services/usersService');
+const CreateUserController = require('./controllers/createUserController');
 
 const AppFactory = (args) => {
   // repos
@@ -8,6 +10,7 @@ const AppFactory = (args) => {
 
   // services (business logic layer)
   const healthService = new HealthService({ usersRepo });
+  const usersService = new UsersService({ usersRepo });
 
   // create server + middlewares
   const app = express();
@@ -38,6 +41,7 @@ const AppFactory = (args) => {
 
   // create controllers
   const healthController = new HealthController({ healthService });
+  const createUserController = new CreateUserController({ usersService });
 
   // create routers
   // TODO
@@ -47,6 +51,7 @@ const AppFactory = (args) => {
     return healthController.execute(req, res);
   });
 
+  // TODO: refactor and make new views directory?
   app.get('/', (req, res) => {
     res.send(`
     <div>
@@ -61,18 +66,7 @@ const AppFactory = (args) => {
   });
 
   app.post('/', async (req, res) => {
-    const { email, password, passwordConfirmation } = req.body;
-
-    const existingUser = await usersRepo.getOneBy({ email });
-    if (existingUser) {
-      return res.send('Email in use');
-    }
-
-    if (password !== passwordConfirmation) {
-      return res.send('Password must match');
-    }
-
-    res.send('Account created!!!');
+    return createUserController.execute(req, res);
   });
 
   return app;

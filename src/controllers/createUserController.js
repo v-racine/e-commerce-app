@@ -23,3 +23,5 @@ class CreateUserController extends BaseController {
     return res.send(result);
   }
 }
+
+module.exports = CreateUserController;
