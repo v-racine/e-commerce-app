@@ -1,11 +1,13 @@
 const express = require('express');
+const HealthService = require('./services/healthService');
+const HealthController = require('./controllers/healthController');
 
 const AppFactory = (args) => {
   // repos
   const usersRepo = args.usersRepo;
 
   // services (business logic layer)
-  // TODO
+  const healthService = new HealthService({ usersRepo });
 
   // create server + middlewares
   const app = express();
@@ -35,12 +37,16 @@ const AppFactory = (args) => {
   // };
 
   // create controllers
-  // TODO
+  const healthController = new HealthController({ healthService });
 
   // create routers
   // TODO
 
   // register routes
+  app.get('/health', async (req, res) => {
+    return healthController.execute(req, res);
+  });
+
   app.get('/', (req, res) => {
     res.send(`
     <div>
