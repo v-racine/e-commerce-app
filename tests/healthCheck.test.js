@@ -1,7 +1,7 @@
 const request = require('supertest');
 const AppFactory = require('../src/app');
 
-describe('/health', () => {
+describe('health', () => {
   const mockUsersRepo = {};
 
   const app = AppFactory({
