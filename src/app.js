@@ -17,7 +17,6 @@ const AppFactory = (args) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-
   // create controllers
   const healthController = new HealthController({ healthService });
   const createUserController = new CreateUserController({ usersService });
