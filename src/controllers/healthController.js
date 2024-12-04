@@ -13,7 +13,7 @@ class HealthController extends BaseController {
       ? this.ok(res, {
           status: 'ok',
         })
-      : this.unavailable(res, 'unable to retreieve data');
+      : this.unavailable(res, 'unable to retrieve data');
   }
 }
 
