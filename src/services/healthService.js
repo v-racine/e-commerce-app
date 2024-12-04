@@ -9,7 +9,7 @@ class HealthService {
 
       return true;
     } catch (err) {
-      console.log(`failed to connect to db: `, err.message);
+      console.log(`failed to connect to db: ${err.message}`);
 
       return false;
     }
