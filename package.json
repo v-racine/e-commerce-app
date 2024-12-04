@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon ./src/index.js",
     "fmt": "npx prettier --write ./src ./tests",
+    "fmt:check": "npx prettier --check ./src ./tests",
     "test": "jest"
   },
   "keywords": [],
