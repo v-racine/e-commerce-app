@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieSession = require('cookie-session'); //middleware library
 const HealthService = require('./services/healthService');
 const HealthController = require('./controllers/healthController');
 const { UsersService } = require('./services/usersService');
@@ -16,6 +17,11 @@ const AppFactory = (args) => {
   const app = express();
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+  app.use(
+    cookieSession({
+      keys: ['hgiojnlvjhoienfvmf'],
+    }),
+  );
 
   // create controllers
   const healthController = new HealthController({ healthService });
@@ -33,6 +39,7 @@ const AppFactory = (args) => {
   app.get('/', (req, res) => {
     res.send(`
     <div>
+      Your id is: ${req.session.userId}
       <form method="POST">
         <input name="email" placeholder="email" />
         <input name="password" placeholder="password" />

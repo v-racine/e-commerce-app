@@ -29,6 +29,7 @@ class CreateUserController extends BaseController {
     }
 
     // TODO: Store the id of that user inside the users cookie (in the controller layer)
+    req.session.userId = user.id;
 
     return res.send(`User ${user.id} created!!!`);
   }
