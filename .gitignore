@@ -2,3 +2,4 @@ node_modules
 .DS_store
 db/*.sqlite3
 session-store.db
+users.json

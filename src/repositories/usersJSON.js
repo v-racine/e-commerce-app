@@ -26,10 +26,15 @@ class UsersRepositoryJSON {
 
   async create(attrs) {
     attrs.id = this.randomId();
+
     const records = await this.getAll();
+
     records.push(attrs);
+
     //write the updated "records" array back to this.filename
     await this.writeAll(records);
+
+    return attrs;
   }
 
   async writeAll(records) {

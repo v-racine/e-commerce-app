@@ -73,10 +73,18 @@ describe('user creation', () => {
   describe('when: the db does not contain the user and the passwords match', () => {
     let rsp;
 
+    let id = '3424';
+
     beforeEach(async () => {
       mockUsersRepo.getOneBy = jest.fn().mockImplementation(() => {
         return new Promise((resolve) => {
           resolve(undefined);
+        });
+      });
+
+      mockUsersRepo.create = jest.fn().mockImplementation(() => {
+        return new Promise((resolve) => {
+          resolve({ id: id });
         });
       });
 
@@ -89,12 +97,12 @@ describe('user creation', () => {
       jest.clearAllMocks();
     });
 
-    test("then: we return 'Account created!!!'", async () => {
+    test("then: we return 'User id created!!!'", async () => {
       const status = rsp.status;
       expect(status).toBe(200);
 
       const text = rsp.text;
-      expect(text).toBe('Account created!!!');
+      expect(text).toBe(`User ${id} created!!!`);
 
       expect(mockUsersRepo.getOneBy).toHaveBeenCalledWith({ email: 'test3@test.com' });
     });

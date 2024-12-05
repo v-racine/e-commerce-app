@@ -1,7 +1,7 @@
 const express = require('express');
 const HealthService = require('./services/healthService');
 const HealthController = require('./controllers/healthController');
-const UsersService = require('./services/usersService');
+const { UsersService } = require('./services/usersService');
 const CreateUserController = require('./controllers/createUserController');
 
 const AppFactory = (args) => {

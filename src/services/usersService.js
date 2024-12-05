@@ -1,3 +1,15 @@
+class ErrEmailInUse extends Error {
+  constructor() {
+    super('Email in use');
+  }
+}
+
+class ErrPasswordMisMatch extends Error {
+  constructor() {
+    super('Password must match');
+  }
+}
+
 class UsersService {
   /**
    * UsersService args expects the following
@@ -21,17 +33,21 @@ class UsersService {
   async createUser(email, password, passwordConfirmation) {
     const existingUser = await this.usersRepo.getOneBy({ email });
     if (existingUser) {
-      return 'Email in use';
+      throw new ErrEmailInUse();
     }
 
     if (password !== passwordConfirmation) {
-      return 'Password must match';
+      throw new ErrPasswordMisMatch();
     }
 
-    // TODO: actually create the entry with this.usersRepo
+    const user = await this.usersRepo.create({ email, password });
 
-    return 'Account created!!!';
+    return user;
   }
 }
 
-module.exports = UsersService;
+module.exports = {
+  UsersService,
+  ErrEmailInUse,
+  ErrPasswordMisMatch,
+};
