@@ -1,3 +1,4 @@
+const { ErrEmailInUse, ErrPasswordMisMatch } = require('../services/usersService');
 const BaseController = require('./baseController');
 
 class CreateUserController extends BaseController {
@@ -14,13 +15,22 @@ class CreateUserController extends BaseController {
   async execute(req, res) {
     const { email, password, passwordConfirmation } = req.body;
 
-    // TODO: validation?
+    let user;
 
-    // TODO: error handling?
+    try {
+      user = await this.usersService.createUser(email, password, passwordConfirmation);
+    } catch (err) {
+      if (err instanceof ErrEmailInUse || err instanceof ErrPasswordMisMatch) {
+        return res.send(err.message);
+      } else {
+        console.log(`failed to create a user: ${JSON.stringify(err)}`);
+        return res.send('Internal server error');
+      }
+    }
 
-    const result = await this.usersService.createUser(email, password, passwordConfirmation);
+    // TODO: Store the id of that user inside the users cookie (in the controller layer)
 
-    return res.send(result);
+    return res.send(`User ${user.id} created!!!`);
   }
 }
 
