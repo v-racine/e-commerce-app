@@ -104,6 +104,8 @@ describe('user creation', () => {
       const text = rsp.text;
       expect(text).toBe(`User ${id} created!!!`);
 
+      expect(rsp.get('Set-Cookie').length).not.toBe(0);
+
       expect(mockUsersRepo.getOneBy).toHaveBeenCalledWith({ email: 'test3@test.com' });
     });
   });
