@@ -10,7 +10,11 @@ class Config {
       return Config.Instance;
     }
 
-    this.nodeEnv = env.NODE_ENV;
+    this.nodeEnv = 'dev';
+
+    if (env.NODE_ENV !== undefined) {
+      this.nodeEnv = env.NODE_ENV;
+    }
 
     Object.freeze(this);
 
