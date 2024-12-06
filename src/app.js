@@ -1,4 +1,3 @@
-const { Config } = require('./config/config');
 const express = require('express');
 const cookieSession = require('cookie-session'); //middleware library
 const HealthService = require('./services/healthService');
@@ -21,7 +20,7 @@ const AppFactory = (args) => {
   app.use(
     cookieSession({
       keys: ['hgiojnlvjhoienfvmf'],
-      secure: Config.Get().nodeEnv !== 'test',
+      secure: false,
     }),
   );
 
@@ -37,8 +36,12 @@ const AppFactory = (args) => {
     return healthController.execute(req, res);
   });
 
-  // TODO: refactor and make new views directory?
   app.get('/', (req, res) => {
+    res.redirect('/signup');
+  });
+
+  // TODO: refactor and make new views directory?
+  app.get('/signup', (req, res) => {
     res.send(`
     <div>
       Your id is: ${req.session.userId}
@@ -52,8 +55,30 @@ const AppFactory = (args) => {
   `);
   });
 
-  app.post('/', async (req, res) => {
+  app.post('/signup', async (req, res) => {
     return createUserController.execute(req, res);
+  });
+
+  app.get('/signout', (req, res) => {
+    req.session = null;
+    res.send('You are logged out.');
+    //res.redirect('/signup');
+  });
+
+  app.get('/signin', (req, res) => {
+    res.send(`
+    <div>
+      <form method="POST">
+        <input name="email" placeholder="email" />
+        <input name="password" placeholder="password" />
+        <button>Sign In</button>
+      </form>
+    </div>
+    `);
+  });
+
+  app.post('/signin', async (req, res) => {
+    //await (place in controller)
   });
 
   return app;

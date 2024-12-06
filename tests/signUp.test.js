@@ -5,7 +5,7 @@ Config.Get(process.env);
 const AppFactory = require('../src/app');
 const request = require('supertest');
 
-describe('user creation', () => {
+describe('sign up', () => {
   const mockUsersRepo = {};
 
   const app = AppFactory({
@@ -23,7 +23,7 @@ describe('user creation', () => {
       });
 
       rsp = await request(app)
-        .post('/')
+        .post('/signup')
         .send({ email: 'test1@test.com', password: 'asdf', passwordConfirmation: 'asdf' });
     });
 
@@ -54,7 +54,7 @@ describe('user creation', () => {
       });
 
       rsp = await request(app)
-        .post('/')
+        .post('/signup')
         .send({ email: 'test2@test.com', password: 'asdf', passwordConfirmation: 'asdff' });
     });
 
@@ -73,7 +73,6 @@ describe('user creation', () => {
     });
   });
 
-  // TODO: more work needed
   describe('when: the db does not contain the user and the passwords match', () => {
     let rsp;
 
@@ -93,7 +92,7 @@ describe('user creation', () => {
       });
 
       rsp = await request(app)
-        .post('/')
+        .post('/signup')
         .send({ email: 'test3@test.com', password: 'asdf', passwordConfirmation: 'asdf' });
     });
 
