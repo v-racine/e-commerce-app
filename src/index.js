@@ -1,8 +1,13 @@
+const { Config } = require('./config/config');
+
+const config = Config.Get(process.env);
+
 const AppFactory = require('./app');
 const usersRepo = require('./repositories/usersJSON');
 //const bodyParser = require("body-parser");
 
 const app = AppFactory({
+  config: config,
   usersRepo: usersRepo,
 });
 

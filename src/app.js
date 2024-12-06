@@ -1,3 +1,4 @@
+const { Config } = require('./config/config');
 const express = require('express');
 const cookieSession = require('cookie-session'); //middleware library
 const HealthService = require('./services/healthService');
@@ -6,6 +7,12 @@ const { UsersService } = require('./services/usersService');
 const CreateUserController = require('./controllers/createUserController');
 
 const AppFactory = (args) => {
+  //config
+  let config = Config.Get(process.env);
+  if (args.config) {
+    config = args.config;
+  }
+
   // repos
   const usersRepo = args.usersRepo;
 
@@ -20,7 +27,7 @@ const AppFactory = (args) => {
   app.use(
     cookieSession({
       keys: ['hgiojnlvjhoienfvmf'],
-      secure: process.env.NODE_ENV !== 'test',
+      secure: config.nodeEnv !== 'test',
     }),
   );
 
