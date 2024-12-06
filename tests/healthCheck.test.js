@@ -1,3 +1,7 @@
+const { Config } = require('../src/config/config');
+
+Config.Get(process.env);
+
 const request = require('supertest');
 const AppFactory = require('../src/app');
 

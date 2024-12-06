@@ -1,3 +1,4 @@
+const { Config } = require('./config/config');
 const express = require('express');
 const cookieSession = require('cookie-session'); //middleware library
 const HealthService = require('./services/healthService');
@@ -20,7 +21,7 @@ const AppFactory = (args) => {
   app.use(
     cookieSession({
       keys: ['hgiojnlvjhoienfvmf'],
-      secure: process.env.NODE_ENV !== 'test',
+      secure: Config.Get().nodeEnv !== 'test',
     }),
   );
 
