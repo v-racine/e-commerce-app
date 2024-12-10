@@ -10,6 +10,18 @@ class ErrPasswordMisMatch extends Error {
   }
 }
 
+class ErrEmailNotFound extends Error {
+  constuctor() {
+    super('Email not found');
+  }
+}
+
+class ErrInvalidPassword extends Error {
+  constructor() {
+    super('Invalid password');
+  }
+}
+
 class UsersService {
   /**
    * UsersService args expects the following
@@ -44,6 +56,21 @@ class UsersService {
 
     return user;
   }
+
+  async signInUser(email, password) {
+    const user = await this.usersRepo.getOneBy({ email });
+
+    if (!user) {
+      throw new ErrEmailNotFound();
+    }
+
+    if (user.password !== password) {
+      throw new ErrInvalidPassword();
+    }
+
+    return user;
+  }
+
 }
 
 module.exports = {
