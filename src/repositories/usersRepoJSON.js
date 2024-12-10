@@ -34,7 +34,7 @@ class UsersRepositoryJSON {
     //write the updated "records" array back to this.filename
     await this.writeAll(records);
 
-    return attrs;
+    return record;
   }
 
   async writeAll(records) {
