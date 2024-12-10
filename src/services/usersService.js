@@ -11,7 +11,7 @@ class ErrPasswordMisMatch extends Error {
 }
 
 class ErrEmailNotFound extends Error {
-  constuctor() {
+  constructor() {
     super('Email not found');
   }
 }
@@ -70,11 +70,12 @@ class UsersService {
 
     return user;
   }
-
 }
 
 module.exports = {
   UsersService,
   ErrEmailInUse,
   ErrPasswordMisMatch,
+  ErrEmailNotFound,
+  ErrInvalidPassword,
 };
