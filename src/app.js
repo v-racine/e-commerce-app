@@ -4,6 +4,7 @@ const HealthService = require('./services/healthService');
 const HealthController = require('./controllers/healthController');
 const { UsersService } = require('./services/usersService');
 const CreateUserController = require('./controllers/createUserController');
+const { SignInController } = require('./controllers/signInController');
 
 const AppFactory = (args) => {
   // repos
@@ -27,6 +28,7 @@ const AppFactory = (args) => {
   // create controllers
   const healthController = new HealthController({ healthService });
   const createUserController = new CreateUserController({ usersService });
+  const signInController = new SignInController({ usersService });
 
   // create routers
   // TODO
@@ -78,21 +80,7 @@ const AppFactory = (args) => {
   });
 
   app.post('/signin', async (req, res) => {
-    //await... (place in controller)
-    const { email, password } = req.body;
-
-    const user = await usersRepo.getOneBy({ email });
-
-    if (!user) {
-      return res.send('Email not found');
-    }
-
-    if (user.password !== password) {
-      return res.send('Invalid password');
-    }
-
-    req.session.userId = user.id;
-    res.send('You are signed in.');
+    return signInController.execute(req, res);
   });
 
   return app;
