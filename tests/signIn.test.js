@@ -46,7 +46,11 @@ describe('sign in', () => {
     beforeEach(async () => {
       mockUsersRepo.getOneBy = jest.fn().mockImplementation(() => {
         return new Promise((resolve) => {
-          resolve({ email: 'testing2@test.com', password: 'testing3' });
+          resolve({
+            email: 'testing2@test.com',
+            password:
+              'c39c38f8856779b2271931a7bf0b9b9002f452a8450b81e54e12a77e9025653e401ec28c4839bcfba384d90a94f13caf4fa8f52104cf72fd04f0dec2272c1330.9a4dfb72bbf1f3ef',
+          });
         });
       });
 
@@ -59,7 +63,7 @@ describe('sign in', () => {
       jest.clearAllMocks();
     });
 
-    test('then: we return "Password must match"', async () => {
+    test('then: we return "Invalid password"', async () => {
       const status = rsp.status;
       expect(status).toBe(200);
 
@@ -76,13 +80,17 @@ describe('sign in', () => {
     beforeEach(async () => {
       mockUsersRepo.getOneBy = jest.fn().mockImplementation(() => {
         return new Promise((resolve) => {
-          resolve({ email: 'testing5@test.com', password: 'testing5' });
+          resolve({
+            email: 'testing5@test.com',
+            password:
+              'c39c38f8856779b2271931a7bf0b9b9002f452a8450b81e54e12a77e9025653e401ec28c4839bcfba384d90a94f13caf4fa8f52104cf72fd04f0dec2272c1330.9a4dfb72bbf1f3ef',
+          });
         });
       });
 
       rsp = await request(app)
         .post('/signin')
-        .send({ email: 'testing5@test.com', password: 'testing5' });
+        .send({ email: 'testing5@test.com', password: 'papillon' });
     });
 
     afterEach(() => {

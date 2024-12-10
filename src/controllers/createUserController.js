@@ -23,7 +23,7 @@ class CreateUserController extends BaseController {
       if (err instanceof ErrEmailInUse || err instanceof ErrPasswordMisMatch) {
         return res.send(err.message);
       } else {
-        console.log(`failed to create a user: ${JSON.stringify(err)}`);
+        console.log(`failed to create a user: ${err}`);
         return res.send('Internal server error');
       }
     }

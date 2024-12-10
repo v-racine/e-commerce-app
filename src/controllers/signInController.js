@@ -18,7 +18,7 @@ class SignInController extends BaseController {
       if (err instanceof ErrEmailNotFound || err instanceof ErrInvalidPassword) {
         return res.send(err.message);
       } else {
-        console.log(`failed to sign in user: ${JSON.stringify(err)}`);
+        console.log(`failed to sign in user: ${err}`);
         return res.send('Internal server error');
       }
     }
