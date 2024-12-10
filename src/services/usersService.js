@@ -10,6 +10,18 @@ class ErrPasswordMisMatch extends Error {
   }
 }
 
+class ErrEmailNotFound extends Error {
+  constructor() {
+    super('Email not found');
+  }
+}
+
+class ErrInvalidPassword extends Error {
+  constructor() {
+    super('Invalid password');
+  }
+}
+
 class UsersService {
   /**
    * UsersService args expects the following
@@ -44,10 +56,33 @@ class UsersService {
 
     return user;
   }
+
+  /**
+   * signInUser checks if user's email exists and, if so, checks if password entered
+   * matches password stored in db, and then returns that user
+   * @param {string} email
+   * @param {string} password
+   * @returns {{id: string, email: string, password: string}} user
+   */
+  async signInUser(email, password) {
+    const user = await this.usersRepo.getOneBy({ email });
+
+    if (!user) {
+      throw new ErrEmailNotFound();
+    }
+
+    if (user.password !== password) {
+      throw new ErrInvalidPassword();
+    }
+
+    return user;
+  }
 }
 
 module.exports = {
   UsersService,
   ErrEmailInUse,
   ErrPasswordMisMatch,
+  ErrEmailNotFound,
+  ErrInvalidPassword,
 };
