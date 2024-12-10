@@ -1,5 +1,5 @@
 const { ErrEmailInUse, ErrPasswordMisMatch } = require('../services/usersService');
-const BaseController = require('./baseController');
+const { BaseController } = require('./baseController');
 
 class CreateUserController extends BaseController {
   /**
@@ -34,4 +34,4 @@ class CreateUserController extends BaseController {
   }
 }
 
-module.exports = CreateUserController;
+module.exports = { CreateUserController };

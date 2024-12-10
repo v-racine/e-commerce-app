@@ -1,9 +1,9 @@
 const express = require('express');
 const cookieSession = require('cookie-session'); //middleware library
-const HealthService = require('./services/healthService');
-const HealthController = require('./controllers/healthController');
+const { HealthService } = require('./services/healthService');
+const { HealthController } = require('./controllers/healthController');
 const { UsersService } = require('./services/usersService');
-const CreateUserController = require('./controllers/createUserController');
+const { CreateUserController } = require('./controllers/createUserController');
 const { SignInController } = require('./controllers/signInController');
 
 const AppFactory = (args) => {
