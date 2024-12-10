@@ -1,4 +1,4 @@
-const BaseController = require('./baseController');
+const { BaseController } = require('./baseController');
 
 class HealthController extends BaseController {
   constructor(args) {
@@ -17,4 +17,4 @@ class HealthController extends BaseController {
   }
 }
 
-module.exports = HealthController;
+module.exports = { HealthController };

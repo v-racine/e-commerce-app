@@ -16,4 +16,4 @@ class HealthService {
   }
 }
 
-module.exports = HealthService;
+module.exports = { HealthService };

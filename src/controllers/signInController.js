@@ -1,5 +1,5 @@
 const { ErrEmailNotFound, ErrInvalidPassword } = require('../services/usersService');
-const BaseController = require('./baseController');
+const { BaseController } = require('./baseController');
 
 class SignInController extends BaseController {
   constructor(args) {
