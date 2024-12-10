@@ -29,4 +29,4 @@ class SignInController extends BaseController {
   }
 }
 
-module.exports = SignInController;
+module.exports = { SignInController };
