@@ -57,6 +57,13 @@ class UsersService {
     return user;
   }
 
+  /**
+   * signInUser checks if user's email exists and, if so, checks if password entered
+   * matches password stored in db, and then returns that user
+   * @param {string} email
+   * @param {string} password
+   * @returns {{id: string, email: string, password: string}} user
+   */
   async signInUser(email, password) {
     const user = await this.usersRepo.getOneBy({ email });
 
