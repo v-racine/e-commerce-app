@@ -5,8 +5,8 @@ const { HealthController } = require('./controllers/healthController');
 const { UsersService } = require('./services/usersService');
 const { CreateUserController } = require('./controllers/createUserController');
 const { SignInController } = require('./controllers/signInController');
-const signupTemplate = require('../views/admin/auth/signup');
-const signinTemplate = require('../views/admin/auth/signin');
+const signupTemplate = require('./views/admin/auth/signup');
+const signinTemplate = require('./views/admin/auth/signin');
 
 const AppFactory = (args) => {
   // repos
