@@ -53,6 +53,7 @@ class UsersService {
       throw new ErrEmailInUse();
     }
 
+    //TODO: might refactor to the http layer as part of parsing/validation
     if (password !== passwordConfirmation) {
       throw new ErrPasswordMisMatch();
     }
