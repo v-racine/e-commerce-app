@@ -12,6 +12,96 @@ describe('sign up', () => {
     usersRepo: mockUsersRepo,
   });
 
+  describe('when: the user passes in something that is not an email for email', () => {
+    let rsp;
+
+    beforeEach(async () => {
+      rsp = await request(app)
+        .post('/signup')
+        .send({ email: 'asdf', password: 'asdf', passwordConfirmation: 'asdf' });
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    test("then: we return 'Must be a valid email' html", async () => {
+      const status = rsp.status;
+      expect(status).toBe(200);
+
+      const text = rsp.text;
+      expect(text).toMatchSnapshot();
+    });
+  });
+
+  describe('when: the user passes in an empty string after trim for a password and password confirmation', () => {
+    let rsp;
+
+    beforeEach(async () => {
+      rsp = await request(app)
+        .post('/signup')
+        .send({ email: 'testing@testing.com', password: '   ', passwordConfirmation: '   ' });
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    test('then: we return "Must be between 4 and 20 characters', async () => {
+      const status = rsp.status;
+      expect(status).toBe(200);
+
+      const text = rsp.text;
+      expect(text).toMatchSnapshot();
+    });
+  });
+
+  describe('when: the user passes in a password + confirmation combination, each of which are longer than 20 chars', () => {
+    let rsp;
+
+    beforeEach(async () => {
+      rsp = await request(app).post('/signup').send({
+        email: 'testing@testing.com',
+        password: 'abcdefghijklmnopqrstuvwxyz',
+        passwordConfirmation: 'abcdefghijklmnopqrstuvwxyz',
+      });
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    test('then: we return "then: we return "Must be between 4 and 20 characters"', () => {
+      const status = rsp.status;
+      expect(status).toBe(200);
+
+      const text = rsp.text;
+      expect(text).toMatchSnapshot();
+    });
+  });
+
+  describe('when: the user passes in something that is not an email and no password', () => {
+    let rsp;
+
+    beforeEach(async () => {
+      rsp = await request(app)
+        .post('/signup')
+        .send({ email: 'asdf', password: '', passwordConfirmation: '' });
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    test('then: we return html with all of the parsing errors', async () => {
+      const status = rsp.status;
+      expect(status).toBe(200);
+
+      const text = rsp.text;
+      expect(text).toMatchSnapshot();
+    });
+  });
+
   describe('when: the db already contains a user with that email', () => {
     let rsp;
 
