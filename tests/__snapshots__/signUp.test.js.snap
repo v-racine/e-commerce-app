@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sign up when: the user passes in a password + confirmation combination, each of which are longer than 20 chars then: we return "then: we return "Must be between 4 and 20 characters" 1`] = `
+"
+    <!DOCTYPE html>
+    <html>
+      <head>
+      </head>
+
+      <body>
+        
+    <div>
+      Your id is: undefined
+      <form method="POST">
+        <input name="email" placeholder="email" />
+        
+        <input name="password" placeholder="password" />
+        Must be between 4 and 20 characters
+        <input name= "passwordConfirmation" placeholder="password confirmation" />
+        Must be between 4 and 20 characters
+        <button>Sign Up</button>
+      </form>
+    </div>
+  
+      </body>
+
+    </html>
+  "
+`;
+
+exports[`sign up when: the user passes in an empty string after trim for a password and password confirmation then: we return "Must be between 4 and 20 characters 1`] = `
+"
+    <!DOCTYPE html>
+    <html>
+      <head>
+      </head>
+
+      <body>
+        
+    <div>
+      Your id is: undefined
+      <form method="POST">
+        <input name="email" placeholder="email" />
+        
+        <input name="password" placeholder="password" />
+        Must be between 4 and 20 characters
+        <input name= "passwordConfirmation" placeholder="password confirmation" />
+        Must be between 4 and 20 characters
+        <button>Sign Up</button>
+      </form>
+    </div>
+  
+      </body>
+
+    </html>
+  "
+`;
+
+exports[`sign up when: the user passes in something that is not an email and no password then: we return html with all of the parsing errors 1`] = `
+"
+    <!DOCTYPE html>
+    <html>
+      <head>
+      </head>
+
+      <body>
+        
+    <div>
+      Your id is: undefined
+      <form method="POST">
+        <input name="email" placeholder="email" />
+        Must be a valid email
+        <input name="password" placeholder="password" />
+        Must be between 4 and 20 characters
+        <input name= "passwordConfirmation" placeholder="password confirmation" />
+        Must be between 4 and 20 characters
+        <button>Sign Up</button>
+      </form>
+    </div>
+  
+      </body>
+
+    </html>
+  "
+`;
+
+exports[`sign up when: the user passes in something that is not an email for email then: we return 'Must be a valid email' html 1`] = `
+"
+    <!DOCTYPE html>
+    <html>
+      <head>
+      </head>
+
+      <body>
+        
+    <div>
+      Your id is: undefined
+      <form method="POST">
+        <input name="email" placeholder="email" />
+        Must be a valid email
+        <input name="password" placeholder="password" />
+        
+        <input name= "passwordConfirmation" placeholder="password confirmation" />
+        
+        <button>Sign Up</button>
+      </form>
+    </div>
+  
+      </body>
+
+    </html>
+  "
+`;
