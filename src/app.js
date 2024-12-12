@@ -8,7 +8,7 @@ const { CreateUserController } = require('./controllers/createUserController');
 const { SignInController } = require('./controllers/signInController');
 const signupTemplate = require('./views/admin/auth/signup');
 const signinTemplate = require('./views/admin/auth/signin');
-const { parseEmail, parsePassword, parsePasswordConfirmation } = require('./parsers');
+const { parseEmail, parsePassword, parsePasswordConfirmation } = require('./middlewares/parsers');
 
 const AppFactory = (args) => {
   // repos
