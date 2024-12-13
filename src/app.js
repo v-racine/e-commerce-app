@@ -20,6 +20,7 @@ const AppFactory = (args) => {
 
   // create server + middlewares
   const app = express();
+  app.use(express.static('public'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(
@@ -67,10 +68,16 @@ const AppFactory = (args) => {
   });
 
   app.get('/signin', (req, res) => {
-    res.send(signinTemplate());
+    res.send(signinTemplate({}));
   });
 
-  app.post('/signin', async (req, res) => {
+  app.post('/signin', [parseEmail], async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.send(signinTemplate({ errors }));
+    }
+
     return signInController.execute(req, res);
   });
 

@@ -12,6 +12,26 @@ describe('sign in', () => {
     usersRepo: mockUsersRepo,
   });
 
+  describe('when: the user passes in something that is not an email for email', () => {
+    let rsp;
+
+    beforeEach(async () => {
+      rsp = await request(app).post('/signin').send({ email: 'asdf', password: 'testing' });
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    test("then: we return 'Must be a valid email' html", async () => {
+      const status = rsp.status;
+      expect(status).toBe(200);
+
+      const text = rsp.text;
+      expect(text).toMatchSnapshot();
+    });
+  });
+
   describe('when: the db does not already contain that email', () => {
     let rsp;
 

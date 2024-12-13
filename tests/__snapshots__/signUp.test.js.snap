@@ -3,27 +3,66 @@
 exports[`sign up when: the user passes in a password + confirmation combination, each of which are longer than 20 chars then: we return "then: we return "Must be between 4 and 20 characters" 1`] = `
 "
     <!DOCTYPE html>
-    <html>
+      <html lang="en">
       <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Shop</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+        <link href="/css/main.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"></link>
       </head>
 
-      <body>
-        
-    <div>
-      Your id is: undefined
-      <form method="POST">
-        <input name="email" placeholder="email" />
-        
-        <input name="password" placeholder="password" />
-        Must be between 4 and 20 characters
-        <input name= "passwordConfirmation" placeholder="password confirmation" />
-        Must be between 4 and 20 characters
-        <button>Sign Up</button>
-      </form>
-    </div>
-  
+      <body class="admin">
+        <header>
+          <nav class="navbar navbar-bottom">
+            <div class="container navbar-container">
+              <div>
+                <a href="/admin/products">
+                  <h3 class="title">Admin Panel</h3>
+                </a>
+              </div>
+              <div class="navbar-item">
+                <div class="navbar-buttons">
+                  <div class="navbar-item">
+                    <a href="/admin/products"><i class="fa fa-star"></i> Products</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </header>
+        <div class="container">
+          
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-one-quarter">
+            <form method="POST">
+              <h1 class="title">Sign Up</h1>
+              <div class="field">
+                <label class="label">Email</label>
+                <input required class="input" placeholder="Email" name="email" />
+                <p class="help is-danger"></p>
+              </div>
+              <div class="field">
+                <label class="label">Password</label>
+                <input required class="input" placeholder="Password" name="password" type="password" />
+                <p class="help is-danger">Must be between 4 and 20 characters</p>
+              </div>
+              <div class="field">
+                <label class="label">Password Confirmation</label>
+                <input required class="input" placeholder="Password Confirmation" name="passwordConfirmation" type="password" />
+                <p class="help is-danger">Must be between 4 and 20 characters</p>
+              </div>
+              <button class="button is-primary">Submit</button>
+            </form>
+            <a href="/signin">Have an account? Sign In</a>
+          </div>
+        </div>
+      </div>
+    
+        </div>
       </body>
-
     </html>
   "
 `;
@@ -31,27 +70,66 @@ exports[`sign up when: the user passes in a password + confirmation combination,
 exports[`sign up when: the user passes in an empty string after trim for a password and password confirmation then: we return "Must be between 4 and 20 characters 1`] = `
 "
     <!DOCTYPE html>
-    <html>
+      <html lang="en">
       <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Shop</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+        <link href="/css/main.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"></link>
       </head>
 
-      <body>
-        
-    <div>
-      Your id is: undefined
-      <form method="POST">
-        <input name="email" placeholder="email" />
-        
-        <input name="password" placeholder="password" />
-        Must be between 4 and 20 characters
-        <input name= "passwordConfirmation" placeholder="password confirmation" />
-        Must be between 4 and 20 characters
-        <button>Sign Up</button>
-      </form>
-    </div>
-  
+      <body class="admin">
+        <header>
+          <nav class="navbar navbar-bottom">
+            <div class="container navbar-container">
+              <div>
+                <a href="/admin/products">
+                  <h3 class="title">Admin Panel</h3>
+                </a>
+              </div>
+              <div class="navbar-item">
+                <div class="navbar-buttons">
+                  <div class="navbar-item">
+                    <a href="/admin/products"><i class="fa fa-star"></i> Products</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </header>
+        <div class="container">
+          
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-one-quarter">
+            <form method="POST">
+              <h1 class="title">Sign Up</h1>
+              <div class="field">
+                <label class="label">Email</label>
+                <input required class="input" placeholder="Email" name="email" />
+                <p class="help is-danger"></p>
+              </div>
+              <div class="field">
+                <label class="label">Password</label>
+                <input required class="input" placeholder="Password" name="password" type="password" />
+                <p class="help is-danger">Must be between 4 and 20 characters</p>
+              </div>
+              <div class="field">
+                <label class="label">Password Confirmation</label>
+                <input required class="input" placeholder="Password Confirmation" name="passwordConfirmation" type="password" />
+                <p class="help is-danger">Must be between 4 and 20 characters</p>
+              </div>
+              <button class="button is-primary">Submit</button>
+            </form>
+            <a href="/signin">Have an account? Sign In</a>
+          </div>
+        </div>
+      </div>
+    
+        </div>
       </body>
-
     </html>
   "
 `;
@@ -59,27 +137,66 @@ exports[`sign up when: the user passes in an empty string after trim for a passw
 exports[`sign up when: the user passes in something that is not an email and no password then: we return html with all of the parsing errors 1`] = `
 "
     <!DOCTYPE html>
-    <html>
+      <html lang="en">
       <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Shop</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+        <link href="/css/main.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"></link>
       </head>
 
-      <body>
-        
-    <div>
-      Your id is: undefined
-      <form method="POST">
-        <input name="email" placeholder="email" />
-        Must be a valid email
-        <input name="password" placeholder="password" />
-        Must be between 4 and 20 characters
-        <input name= "passwordConfirmation" placeholder="password confirmation" />
-        Must be between 4 and 20 characters
-        <button>Sign Up</button>
-      </form>
-    </div>
-  
+      <body class="admin">
+        <header>
+          <nav class="navbar navbar-bottom">
+            <div class="container navbar-container">
+              <div>
+                <a href="/admin/products">
+                  <h3 class="title">Admin Panel</h3>
+                </a>
+              </div>
+              <div class="navbar-item">
+                <div class="navbar-buttons">
+                  <div class="navbar-item">
+                    <a href="/admin/products"><i class="fa fa-star"></i> Products</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </header>
+        <div class="container">
+          
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-one-quarter">
+            <form method="POST">
+              <h1 class="title">Sign Up</h1>
+              <div class="field">
+                <label class="label">Email</label>
+                <input required class="input" placeholder="Email" name="email" />
+                <p class="help is-danger">Must be a valid email</p>
+              </div>
+              <div class="field">
+                <label class="label">Password</label>
+                <input required class="input" placeholder="Password" name="password" type="password" />
+                <p class="help is-danger">Must be between 4 and 20 characters</p>
+              </div>
+              <div class="field">
+                <label class="label">Password Confirmation</label>
+                <input required class="input" placeholder="Password Confirmation" name="passwordConfirmation" type="password" />
+                <p class="help is-danger">Must be between 4 and 20 characters</p>
+              </div>
+              <button class="button is-primary">Submit</button>
+            </form>
+            <a href="/signin">Have an account? Sign In</a>
+          </div>
+        </div>
+      </div>
+    
+        </div>
       </body>
-
     </html>
   "
 `;
@@ -87,27 +204,66 @@ exports[`sign up when: the user passes in something that is not an email and no 
 exports[`sign up when: the user passes in something that is not an email for email then: we return 'Must be a valid email' html 1`] = `
 "
     <!DOCTYPE html>
-    <html>
+      <html lang="en">
       <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Shop</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+        <link href="/css/main.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"></link>
       </head>
 
-      <body>
-        
-    <div>
-      Your id is: undefined
-      <form method="POST">
-        <input name="email" placeholder="email" />
-        Must be a valid email
-        <input name="password" placeholder="password" />
-        
-        <input name= "passwordConfirmation" placeholder="password confirmation" />
-        
-        <button>Sign Up</button>
-      </form>
-    </div>
-  
+      <body class="admin">
+        <header>
+          <nav class="navbar navbar-bottom">
+            <div class="container navbar-container">
+              <div>
+                <a href="/admin/products">
+                  <h3 class="title">Admin Panel</h3>
+                </a>
+              </div>
+              <div class="navbar-item">
+                <div class="navbar-buttons">
+                  <div class="navbar-item">
+                    <a href="/admin/products"><i class="fa fa-star"></i> Products</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </header>
+        <div class="container">
+          
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-one-quarter">
+            <form method="POST">
+              <h1 class="title">Sign Up</h1>
+              <div class="field">
+                <label class="label">Email</label>
+                <input required class="input" placeholder="Email" name="email" />
+                <p class="help is-danger">Must be a valid email</p>
+              </div>
+              <div class="field">
+                <label class="label">Password</label>
+                <input required class="input" placeholder="Password" name="password" type="password" />
+                <p class="help is-danger"></p>
+              </div>
+              <div class="field">
+                <label class="label">Password Confirmation</label>
+                <input required class="input" placeholder="Password Confirmation" name="passwordConfirmation" type="password" />
+                <p class="help is-danger"></p>
+              </div>
+              <button class="button is-primary">Submit</button>
+            </form>
+            <a href="/signin">Have an account? Sign In</a>
+          </div>
+        </div>
+      </div>
+    
+        </div>
       </body>
-
     </html>
   "
 `;
