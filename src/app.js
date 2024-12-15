@@ -8,6 +8,7 @@ const { CreateUserController } = require('./controllers/createUserController');
 const { SignInController } = require('./controllers/signInController');
 const signupTemplate = require('./views/admin/auth/signup');
 const signinTemplate = require('./views/admin/auth/signin');
+const productsNewTemplate = require('./views/admin/products/new');
 const { parseEmail, parsePassword, parsePasswordConfirmation } = require('./middlewares/parsers');
 
 const AppFactory = (args) => {
@@ -83,9 +84,11 @@ const AppFactory = (args) => {
   });
 
   //products route handlers
-  app.get('/products', async (req, res) => {});
+  app.get('/admin/products', async (req, res) => {});
 
-  app.get('/new-products', async (req, res) => {});
+  app.get('/admin/products/new', async (req, res) => {
+    res.send(productsNewTemplate({}));
+  });
 
   return app;
 };
