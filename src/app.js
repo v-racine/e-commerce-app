@@ -9,6 +9,8 @@ const { SignInController } = require('./controllers/signInController');
 const signupTemplate = require('./views/admin/auth/signup');
 const signinTemplate = require('./views/admin/auth/signin');
 const { parseEmail, parsePassword, parsePasswordConfirmation } = require('./middlewares/parsers');
+//temporary import
+const productsRepo = require('./repositories/productsRepoJSON');
 
 const AppFactory = (args) => {
   // repos
@@ -38,7 +40,7 @@ const AppFactory = (args) => {
   // create routers
   // TODO
 
-  // register routes
+  // admin route handlers
   app.get('/health', async (req, res) => {
     return healthController.execute(req, res);
   });
@@ -80,6 +82,11 @@ const AppFactory = (args) => {
 
     return signInController.execute(req, res);
   });
+
+  //products route handlers
+  app.get('/products', async (req, res) => {});
+
+  app.get('/new-products', async (req, res) => {});
 
   return app;
 };
