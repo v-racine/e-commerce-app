@@ -13,6 +13,7 @@ const { parseEmail, parsePassword, parsePasswordConfirmation } = require('./midd
 const AppFactory = (args) => {
   // repos
   const usersRepo = args.usersRepo;
+  const productsRepo = args.productsRepo;
 
   // services (business logic layer)
   const healthService = new HealthService({ usersRepo });

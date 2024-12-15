@@ -9,6 +9,7 @@ const productsRepo = require('./repositories/productsRepoJSON');
 
 const app = AppFactory({
   usersRepo: usersRepo,
+  productsRepo: productsRepo,
 });
 
 //listener
