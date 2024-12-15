@@ -13,6 +13,7 @@ const { parseEmail, parsePassword, parsePasswordConfirmation } = require('./midd
 const AppFactory = (args) => {
   // repos
   const usersRepo = args.usersRepo;
+  const productsRepo = args.productsRepo;
 
   // services (business logic layer)
   const healthService = new HealthService({ usersRepo });
@@ -38,11 +39,11 @@ const AppFactory = (args) => {
   // create routers
   // TODO
 
-  // register routes
   app.get('/health', async (req, res) => {
     return healthController.execute(req, res);
   });
 
+  // admin route handlers
   app.get('/', (req, res) => {
     res.redirect('/signup');
   });
@@ -80,6 +81,11 @@ const AppFactory = (args) => {
 
     return signInController.execute(req, res);
   });
+
+  //products route handlers
+  app.get('/products', async (req, res) => {});
+
+  app.get('/new-products', async (req, res) => {});
 
   return app;
 };
