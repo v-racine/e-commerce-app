@@ -42,7 +42,7 @@ const AppFactory = (args) => {
     return healthController.execute(req, res);
   });
 
-   // admin route handlers
+  // admin route handlers
   app.get('/', (req, res) => {
     res.redirect('/signup');
   });
