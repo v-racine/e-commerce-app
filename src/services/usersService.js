@@ -1,7 +1,4 @@
-const crypto = require('crypto');
-const util = require('util');
-
-const scrypt = util.promisify(crypto.scrypt);
+const { PasswordHelper } = require('../utilities/passwordHelper');
 
 class ErrEmailInUse extends Error {
   constructor() {
@@ -57,13 +54,11 @@ class UsersService {
       throw new ErrPasswordMisMatch();
     }
 
-    const salt = crypto.randomBytes(8).toString('hex');
-
-    const hashedBuff = await scrypt(password, salt, 64);
+    const { hex, salt } = await PasswordHelper.HexAndSalt(password);
 
     const user = await this.usersRepo.create({
       email,
-      password: `${hashedBuff.toString('hex')}.${salt}`,
+      password: `${hex}.${salt}`,
     });
 
     return user;
@@ -82,21 +77,12 @@ class UsersService {
       throw new ErrEmailNotFound();
     }
 
-    const validPassword = await this.comparePasswords(user.password, password);
+    const validPassword = await PasswordHelper.ComparePasswords(user.password, password);
     if (!validPassword) {
       throw new ErrInvalidPassword();
     }
 
     return user;
-  }
-
-  async comparePasswords(saved, supplied) {
-    //Saved  -> password saved in our db, with structure: '<buff.salt>'
-    //Supplied -> password supplied by user trying to sign in
-    const [hashed, salt] = saved.split('.');
-    const hashedSuppliedBuff = await scrypt(supplied, salt, 64);
-
-    return hashed === hashedSuppliedBuff.toString('hex');
   }
 }
 

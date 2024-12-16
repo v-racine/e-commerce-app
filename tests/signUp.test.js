@@ -4,6 +4,7 @@ Config.Get(process.env);
 
 const AppFactory = require('../src/app');
 const request = require('supertest');
+const { PasswordHelper } = require('../src/utilities/passwordHelper');
 
 describe('sign up', () => {
   const mockUsersRepo = {};
@@ -168,7 +169,18 @@ describe('sign up', () => {
 
     let id = '3424';
 
+    let hex =
+      'cf5dc7df47b8f0b6655cefb9457816a0ca15c1d32576e62d8c1cc768acc2ffcd1747570339747b02865fb78eaf46919392d1a33e652b67c05cd820d88a43edb8';
+
+    let salt = 'f8864ab11acaed11';
+
     beforeEach(async () => {
+      PasswordHelper.HexAndSalt = jest.fn().mockImplementation(() => {
+        return new Promise((resolve) => {
+          resolve({ hex: hex, salt: salt });
+        });
+      });
+
       mockUsersRepo.getOneBy = jest.fn().mockImplementation(() => {
         return new Promise((resolve) => {
           resolve(undefined);
@@ -200,6 +212,10 @@ describe('sign up', () => {
       expect(rsp.get('Set-Cookie').length).not.toBe(0);
 
       expect(mockUsersRepo.getOneBy).toHaveBeenCalledWith({ email: 'test3@test.com' });
+      expect(mockUsersRepo.create).toHaveBeenCalledWith({
+        email: 'test3@test.com',
+        password: `${hex}.${salt}`,
+      });
     });
   });
 });
