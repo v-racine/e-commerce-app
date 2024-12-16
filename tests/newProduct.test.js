@@ -138,6 +138,7 @@ describe('create new product', () => {
       expect(text).toMatchSnapshot();
 
       expect(mockProductsRepo.getOneBy).toHaveBeenCalledWith({ title: 'testing' });
+      expect(mockProductsRepo.create).toHaveBeenCalledWith({ title: 'testing', price: 21.21 });
     });
   });
 });

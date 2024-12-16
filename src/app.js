@@ -104,7 +104,7 @@ const AppFactory = (args) => {
     if (!errors.isEmpty()) {
       return res.send(productsNewTemplate({ errors }));
     }
-    //
+
     const { title, price } = req.body;
 
     let product;
