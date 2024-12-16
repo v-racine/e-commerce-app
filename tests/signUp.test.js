@@ -47,7 +47,7 @@ describe('sign up', () => {
       jest.clearAllMocks();
     });
 
-    test('then: we return "Must be between 4 and 20 characters', async () => {
+    test('then: we return "Must be between 4 and 20 characters"', async () => {
       const status = rsp.status;
       expect(status).toBe(200);
 
