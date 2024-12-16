@@ -67,7 +67,7 @@ exports[`sign up when: the user passes in a password + confirmation combination,
   "
 `;
 
-exports[`sign up when: the user passes in an empty string after trim for a password and password confirmation then: we return "Must be between 4 and 20 characters 1`] = `
+exports[`sign up when: the user passes in an empty string after trim for a password and password confirmation then: we return "Must be between 4 and 20 characters" 1`] = `
 "
     <!DOCTYPE html>
       <html lang="en">
