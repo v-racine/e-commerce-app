@@ -34,15 +34,33 @@ exports[`create new product when: the db already contains that product then: we 
         </header>
         <div class="container">
           
-      <form method="POST" enctype="multipart/form-data">
-        <input placeholder="Title" name="title" />
-        
-        <input placeholder="Price" name="price" />
-        
-        <input type="file" name="image" />
-        <button>Submit</button>
-        Product already exists
-      </form>
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <h1 class="subtitle">Create a Product</h1>
+
+          <form method="POST" enctype="multipart/form-data">
+            <div class="field">
+              <label class="label">Title</label>
+              <input class="input" placeholder="Title" name="title">
+              <p class="help is-danger"></p>
+            </div>
+            
+            <div class="field">
+              <label class="label">Price</label>
+              <input class="input" placeholder="Price" name="price">
+              <p class="help is-danger"></p>
+            </div>
+            
+            <div class="field">
+              <label class="label">Image</label>            
+              <input type="file" name="image" />
+            </div>
+            <br />
+            <button class="button is-primary">Create</button>
+            Product already exists
+          </form>
+        </div>
+      </div>
     
         </div>
       </body>
@@ -86,15 +104,33 @@ exports[`create new product when: the user passes in something that is not a flo
         </header>
         <div class="container">
           
-      <form method="POST" enctype="multipart/form-data">
-        <input placeholder="Title" name="title" />
-        
-        <input placeholder="Price" name="price" />
-        Invalid value
-        <input type="file" name="image" />
-        <button>Submit</button>
-        
-      </form>
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <h1 class="subtitle">Create a Product</h1>
+
+          <form method="POST" enctype="multipart/form-data">
+            <div class="field">
+              <label class="label">Title</label>
+              <input class="input" placeholder="Title" name="title">
+              <p class="help is-danger"></p>
+            </div>
+            
+            <div class="field">
+              <label class="label">Price</label>
+              <input class="input" placeholder="Price" name="price">
+              <p class="help is-danger">Invalid value</p>
+            </div>
+            
+            <div class="field">
+              <label class="label">Image</label>            
+              <input type="file" name="image" />
+            </div>
+            <br />
+            <button class="button is-primary">Create</button>
+            
+          </form>
+        </div>
+      </div>
     
         </div>
       </body>
@@ -136,15 +172,33 @@ exports[`create new product when: the user passes in something that is not a pro
         </header>
         <div class="container">
           
-      <form method="POST" enctype="multipart/form-data">
-        <input placeholder="Title" name="title" />
-        Must be between 5 and 40 characters
-        <input placeholder="Price" name="price" />
-        Invalid value
-        <input type="file" name="image" />
-        <button>Submit</button>
-        
-      </form>
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <h1 class="subtitle">Create a Product</h1>
+
+          <form method="POST" enctype="multipart/form-data">
+            <div class="field">
+              <label class="label">Title</label>
+              <input class="input" placeholder="Title" name="title">
+              <p class="help is-danger">Must be between 5 and 40 characters</p>
+            </div>
+            
+            <div class="field">
+              <label class="label">Price</label>
+              <input class="input" placeholder="Price" name="price">
+              <p class="help is-danger">Invalid value</p>
+            </div>
+            
+            <div class="field">
+              <label class="label">Image</label>            
+              <input type="file" name="image" />
+            </div>
+            <br />
+            <button class="button is-primary">Create</button>
+            
+          </form>
+        </div>
+      </div>
     
         </div>
       </body>
@@ -186,15 +240,33 @@ exports[`create new product when: the user passes in something that is not a val
         </header>
         <div class="container">
           
-      <form method="POST" enctype="multipart/form-data">
-        <input placeholder="Title" name="title" />
-        Must be between 5 and 40 characters
-        <input placeholder="Price" name="price" />
-        
-        <input type="file" name="image" />
-        <button>Submit</button>
-        
-      </form>
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <h1 class="subtitle">Create a Product</h1>
+
+          <form method="POST" enctype="multipart/form-data">
+            <div class="field">
+              <label class="label">Title</label>
+              <input class="input" placeholder="Title" name="title">
+              <p class="help is-danger">Must be between 5 and 40 characters</p>
+            </div>
+            
+            <div class="field">
+              <label class="label">Price</label>
+              <input class="input" placeholder="Price" name="price">
+              <p class="help is-danger"></p>
+            </div>
+            
+            <div class="field">
+              <label class="label">Image</label>            
+              <input type="file" name="image" />
+            </div>
+            <br />
+            <button class="button is-primary">Create</button>
+            
+          </form>
+        </div>
+      </div>
     
         </div>
       </body>

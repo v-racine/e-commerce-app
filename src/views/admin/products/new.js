@@ -1,18 +1,36 @@
 const layout = require('../layout');
 const { getError } = require('../../../utilities/getErrorHelper');
 
-module.exports = ({ req, errors, submitError }) => {
+module.exports = ({ errors, submitError }) => {
   return layout({
     content: `
-      <form method="POST" enctype="multipart/form-data">
-        <input placeholder="Title" name="title" />
-        ${getError(errors, 'title')}
-        <input placeholder="Price" name="price" />
-        ${getError(errors, 'price')}
-        <input type="file" name="image" />
-        <button>Submit</button>
-        ${submitError ? submitError : ''}
-      </form>
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <h1 class="subtitle">Create a Product</h1>
+
+          <form method="POST" enctype="multipart/form-data">
+            <div class="field">
+              <label class="label">Title</label>
+              <input class="input" placeholder="Title" name="title">
+              <p class="help is-danger">${getError(errors, 'title')}</p>
+            </div>
+            
+            <div class="field">
+              <label class="label">Price</label>
+              <input class="input" placeholder="Price" name="price">
+              <p class="help is-danger">${getError(errors, 'price')}</p>
+            </div>
+            
+            <div class="field">
+              <label class="label">Image</label>            
+              <input type="file" name="image" />
+            </div>
+            <br />
+            <button class="button is-primary">Create</button>
+            ${submitError ? submitError : ''}
+          </form>
+        </div>
+      </div>
     `,
   });
 };
