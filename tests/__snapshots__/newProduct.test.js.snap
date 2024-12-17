@@ -34,7 +34,7 @@ exports[`create new product when: the db already contains that product then: we 
         </header>
         <div class="container">
           
-      <form method="POST">
+      <form method="POST" enctype="multipart/form-data">
         <input placeholder="Title" name="title" />
         
         <input placeholder="Price" name="price" />
@@ -86,7 +86,7 @@ exports[`create new product when: the user passes in something that is not a flo
         </header>
         <div class="container">
           
-      <form method="POST">
+      <form method="POST" enctype="multipart/form-data">
         <input placeholder="Title" name="title" />
         
         <input placeholder="Price" name="price" />
@@ -136,7 +136,7 @@ exports[`create new product when: the user passes in something that is not a pro
         </header>
         <div class="container">
           
-      <form method="POST">
+      <form method="POST" enctype="multipart/form-data">
         <input placeholder="Title" name="title" />
         Must be between 5 and 40 characters
         <input placeholder="Price" name="price" />
@@ -186,7 +186,7 @@ exports[`create new product when: the user passes in something that is not a val
         </header>
         <div class="container">
           
-      <form method="POST">
+      <form method="POST" enctype="multipart/form-data">
         <input placeholder="Title" name="title" />
         Must be between 5 and 40 characters
         <input placeholder="Price" name="price" />

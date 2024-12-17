@@ -1,12 +1,15 @@
 const express = require('express');
 const cookieSession = require('cookie-session'); //middleware library
 const { check, body, validationResult } = require('express-validator'); //middleware library
+const multer = require('multer');
+
 const { HealthService } = require('./services/healthService');
 const { HealthController } = require('./controllers/healthController');
 const { UsersService } = require('./services/usersService');
 const { ProductsService, ErrProductIsNotNew } = require('./services/productsService');
 const { CreateUserController } = require('./controllers/createUserController');
 const { SignInController } = require('./controllers/signInController');
+
 const signupTemplate = require('./views/admin/auth/signup');
 const signinTemplate = require('./views/admin/auth/signin');
 const productsNewTemplate = require('./views/admin/products/new');
@@ -44,6 +47,8 @@ const AppFactory = (args) => {
   const healthController = new HealthController({ healthService });
   const createUserController = new CreateUserController({ usersService });
   const signInController = new SignInController({ usersService });
+
+  const upload = multer({ storage: multer.memoryStorage() });
 
   // create routers
   // TODO
@@ -98,30 +103,39 @@ const AppFactory = (args) => {
     res.send(productsNewTemplate({}));
   });
 
-  app.post('/admin/products/new', [parseTitle, parsePrice], async (req, res) => {
-    const errors = validationResult(req);
+  app.post(
+    '/admin/products/new',
+    upload.single('image'),
+    [parseTitle, parsePrice],
+    async (req, res) => {
+      const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      return res.send(productsNewTemplate({ errors }));
-    }
-
-    const { title, price } = req.body;
-
-    let product;
-
-    try {
-      product = await productsService.createNewProduct(title, price);
-    } catch (err) {
-      if (err instanceof ErrProductIsNotNew) {
-        return res.send(productsNewTemplate({ submitError: err.message }));
-      } else {
-        console.log(`failed to create new product: ${err}`);
-        return res.send('Internal server error');
+      if (!errors.isEmpty()) {
+        return res.send(productsNewTemplate({ errors }));
       }
-    }
 
-    return res.send(`Submitted ${product.id}`);
-  });
+      //
+
+      const image = req.file.buffer.toString('base64');
+      const { title, price } = req.body;
+
+      let product;
+
+      try {
+        product = await productsService.createNewProduct(title, price, image);
+      } catch (err) {
+        if (err instanceof ErrProductIsNotNew) {
+          return res.send(productsNewTemplate({ submitError: err.message }));
+        } else {
+          console.log(`failed to create new product: ${err}`);
+          return res.send('Internal server error');
+        }
+      }
+
+      //console.log(req.file.buffer.toString('base64'))
+      return res.send(`Submitted ${product.id}`);
+    },
+  );
 
   return app;
 };
