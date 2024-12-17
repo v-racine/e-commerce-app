@@ -9,7 +9,7 @@ class ProductsService {
     this.productsRepo = args.productsRepo;
   }
 
-  async createNewProduct(title, price) {
+  async createNewProduct(title, price, image) {
     const existingProduct = await this.productsRepo.getOneBy({ title });
     if (existingProduct) {
       throw new ErrProductIsNotNew();
@@ -18,6 +18,7 @@ class ProductsService {
     const product = await this.productsRepo.create({
       title,
       price,
+      image,
     });
 
     return product;
