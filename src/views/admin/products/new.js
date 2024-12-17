@@ -16,4 +16,3 @@ module.exports = ({ req, errors, submitError }) => {
     `,
   });
 };
-

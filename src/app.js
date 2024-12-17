@@ -49,7 +49,6 @@ const AppFactory = (args) => {
   const createUserController = new CreateUserController({ usersService });
   const signInController = new SignInController({ usersService });
 
-
   // create routers
   // TODO
 
