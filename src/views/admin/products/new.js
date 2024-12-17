@@ -17,4 +17,3 @@ module.exports = ({ req, errors, submitError }) => {
   });
 };
 
-//enctype="multipart/form-data"

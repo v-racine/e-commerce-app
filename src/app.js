@@ -32,6 +32,7 @@ const AppFactory = (args) => {
   const productsService = new ProductsService({ productsRepo });
 
   // create server + middlewares
+  const upload = multer({ storage: multer.memoryStorage() });
   const app = express();
   app.use(express.static('public'));
   app.use(express.json());
@@ -48,7 +49,6 @@ const AppFactory = (args) => {
   const createUserController = new CreateUserController({ usersService });
   const signInController = new SignInController({ usersService });
 
-  const upload = multer({ storage: multer.memoryStorage() });
 
   // create routers
   // TODO
@@ -132,7 +132,6 @@ const AppFactory = (args) => {
         }
       }
 
-      //console.log(req.file.buffer.toString('base64'))
       return res.send(`Submitted ${product.id}`);
     },
   );
