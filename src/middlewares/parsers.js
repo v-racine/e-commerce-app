@@ -15,4 +15,10 @@ module.exports = {
     .isLength({ min: 5, max: 40 })
     .withMessage('Must be between 5 and 40 characters'),
   parsePrice: check('price').trim().toFloat().isFloat({ min: 1 }).withMessage('Invalid value'),
+  requireImage: check('image').custom(async (image, { req }) => {
+    const img = await req.file;
+    if (!img) {
+      throw new Error('Please upload an image');
+    }
+  }),
 };
