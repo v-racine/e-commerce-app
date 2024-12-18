@@ -34,12 +34,53 @@ exports[`list all products when: the user wants to view all products then: we re
         </header>
         <div class="container">
           
-      <h1 class="title">Products</h> 
-      
-      <div>product1</div>
+      <div class="control">
+        <h1 class="subtitle">Products</h1>  
+        <a href="/admin/products/new" class="button is-primary">New Product</a>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+      <tr>
+        <td>product1</td>
+        <td>undefined</td>
+        <td>
+          <a href="">
+            <button class="button is-link">
+              Edit
+            </button>
+          </a>
+        </td>
+        <td>
+          <button class="button is-danger">Delete</button>
+        </td>
+      </tr>
     
-      <div>product2</div>
+      <tr>
+        <td>product2</td>
+        <td>undefined</td>
+        <td>
+          <a href="">
+            <button class="button is-link">
+              Edit
+            </button>
+          </a>
+        </td>
+        <td>
+          <button class="button is-danger">Delete</button>
+        </td>
+      </tr>
     
+        </tbody>
+      </table>
     
         </div>
       </body>
