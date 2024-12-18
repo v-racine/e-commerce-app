@@ -54,6 +54,7 @@ exports[`create new product when: the db already contains that product then: we 
             <div class="field">
               <label class="label">Image</label>            
               <input type="file" name="image" />
+              <p class="help is-danger"></p>
             </div>
             <br />
             <button class="button is-primary">Create</button>
@@ -69,6 +70,75 @@ exports[`create new product when: the db already contains that product then: we 
 `;
 
 exports[`create new product when: the db does not contain the product AND the price is a valid float then: we return 'Submitted!' 1`] = `"Submitted 1221"`;
+
+exports[`create new product when: the user passes in a title and a valid price but no image then: we return "Please upload an image" 1`] = `
+"
+    <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Shop</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+        <link href="/css/main.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"></link>
+      </head>
+
+      <body class="admin">
+        <header>
+          <nav class="navbar navbar-bottom">
+            <div class="container navbar-container">
+              <div>
+                <a href="/admin/products">
+                  <h3 class="title">Admin Panel</h3>
+                </a>
+              </div>
+              <div class="navbar-item">
+                <div class="navbar-buttons">
+                  <div class="navbar-item">
+                    <a href="/admin/products"><i class="fa fa-star"></i> Products</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </header>
+        <div class="container">
+          
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <h1 class="subtitle">Create a Product</h1>
+
+          <form method="POST" enctype="multipart/form-data">
+            <div class="field">
+              <label class="label">Title</label>
+              <input class="input" placeholder="Title" name="title">
+              <p class="help is-danger"></p>
+            </div>
+            
+            <div class="field">
+              <label class="label">Price</label>
+              <input class="input" placeholder="Price" name="price">
+              <p class="help is-danger"></p>
+            </div>
+            
+            <div class="field">
+              <label class="label">Image</label>            
+              <input type="file" name="image" />
+              <p class="help is-danger">Please upload an image</p>
+            </div>
+            <br />
+            <button class="button is-primary">Create</button>
+            
+          </form>
+        </div>
+      </div>
+    
+        </div>
+      </body>
+    </html>
+  "
+`;
 
 exports[`create new product when: the user passes in something that is not a float number then: we return 'Invalid value' 1`] = `
 "
@@ -124,6 +194,7 @@ exports[`create new product when: the user passes in something that is not a flo
             <div class="field">
               <label class="label">Image</label>            
               <input type="file" name="image" />
+              <p class="help is-danger">Please upload an image</p>
             </div>
             <br />
             <button class="button is-primary">Create</button>
@@ -192,6 +263,7 @@ exports[`create new product when: the user passes in something that is not a pro
             <div class="field">
               <label class="label">Image</label>            
               <input type="file" name="image" />
+              <p class="help is-danger">Please upload an image</p>
             </div>
             <br />
             <button class="button is-primary">Create</button>
@@ -260,6 +332,7 @@ exports[`create new product when: the user passes in something that is not a val
             <div class="field">
               <label class="label">Image</label>            
               <input type="file" name="image" />
+              <p class="help is-danger">Please upload an image</p>
             </div>
             <br />
             <button class="button is-primary">Create</button>

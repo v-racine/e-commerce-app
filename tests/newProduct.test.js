@@ -79,6 +79,28 @@ describe('create new product', () => {
     });
   });
 
+  describe('when: the user passes in a title and a valid price but no image', () => {
+    let rsp;
+
+    beforeEach(async () => {
+      rsp = await request(app)
+        .post('/admin/products/new')
+        .send({ title: 'a new product', price: '21.21', image: undefined });
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    test('then: we return "Please upload an image"', () => {
+      const text = rsp.text;
+      expect(text).toMatchSnapshot();
+
+      const status = rsp.status;
+      expect(status).toBe(200);
+    });
+  });
+
   describe('when: the db already contains that product', () => {
     let rsp;
 

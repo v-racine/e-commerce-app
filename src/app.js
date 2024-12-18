@@ -1,6 +1,6 @@
 const express = require('express');
 const cookieSession = require('cookie-session'); //middleware library
-const { check, body, validationResult } = require('express-validator'); //middleware library
+const { validationResult } = require('express-validator'); //middleware library
 const multer = require('multer');
 
 const { HealthService } = require('./services/healthService');
@@ -13,12 +13,14 @@ const { SignInController } = require('./controllers/signInController');
 const signupTemplate = require('./views/admin/auth/signup');
 const signinTemplate = require('./views/admin/auth/signin');
 const productsNewTemplate = require('./views/admin/products/new');
+const productsIndexTemplate = require('./views/admin/products/index');
 const {
   parseEmail,
   parsePassword,
   parsePasswordConfirmation,
   parseTitle,
   parsePrice,
+  requireImage,
 } = require('./middlewares/parsers');
 
 const AppFactory = (args) => {
@@ -96,7 +98,10 @@ const AppFactory = (args) => {
   });
 
   //products route handlers
-  app.get('/admin/products', async (req, res) => {});
+  app.get('/admin/products', async (req, res) => {
+    const products = await productsService.listAllProducts();
+    res.send(productsIndexTemplate({ products }));
+  });
 
   app.get('/admin/products/new', async (req, res) => {
     res.send(productsNewTemplate({}));
@@ -105,7 +110,7 @@ const AppFactory = (args) => {
   app.post(
     '/admin/products/new',
     upload.single('image'),
-    [parseTitle, parsePrice],
+    [parseTitle, parsePrice, requireImage],
     async (req, res) => {
       const errors = validationResult(req);
 
@@ -114,7 +119,6 @@ const AppFactory = (args) => {
       }
 
       //
-
       const image = req.file.buffer.toString('base64');
       const { title, price } = req.body;
 

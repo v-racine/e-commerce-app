@@ -23,6 +23,10 @@ class ProductsService {
 
     return product;
   }
+
+  async listAllProducts() {
+    return await this.productsRepo.getAll();
+  }
 }
 
 module.exports = {
