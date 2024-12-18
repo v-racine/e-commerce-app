@@ -161,9 +161,9 @@ describe('create new product', () => {
       jest.clearAllMocks();
     });
 
-    test("then: we return 'Submitted!'", async () => {
+    test('then: we redirect to products list', async () => {
       const status = rsp.status;
-      expect(status).toBe(200);
+      expect(status).toBe(302);
 
       const text = rsp.text;
       expect(text).toMatchSnapshot();

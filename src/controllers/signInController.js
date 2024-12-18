@@ -25,7 +25,8 @@ class SignInController extends BaseController {
 
     req.session.userId = user.id;
 
-    return res.send('You are signed in.');
+    // return res.send('You are signed in.');
+    return res.redirect('/admin/products');
   }
 }
 

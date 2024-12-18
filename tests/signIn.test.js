@@ -117,12 +117,12 @@ describe('sign in', () => {
       jest.clearAllMocks();
     });
 
-    test("then: we return 'You are signed in.'", async () => {
+    test("then: we redirect to products list", async () => {
       const status = rsp.status;
-      expect(status).toBe(200);
+      expect(status).toBe(302);
 
       const text = rsp.text;
-      expect(text).toBe('You are signed in.');
+      expect(text).toBe('Found. Redirecting to /admin/products');
 
       expect(rsp.get('Set-Cookie').length).not.toBe(0);
 

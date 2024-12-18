@@ -30,7 +30,8 @@ class CreateUserController extends BaseController {
 
     req.session.userId = user.id;
 
-    return res.send(`User ${user.id} created!!!`);
+    // return res.send(`User ${user.id} created!!!`);
+    return res.redirect('/admin/products');
   }
 }
 
