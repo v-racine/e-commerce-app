@@ -14,6 +14,7 @@ const signupTemplate = require('./views/admin/auth/signup');
 const signinTemplate = require('./views/admin/auth/signin');
 const productsNewTemplate = require('./views/admin/products/new');
 const productsIndexTemplate = require('./views/admin/products/index');
+
 const {
   parseEmail,
   parsePassword,
@@ -22,6 +23,7 @@ const {
   parsePrice,
   requireImage,
 } = require('./middlewares/parsers');
+const { requireAuth } = require('./middlewares/authenticator');
 
 const AppFactory = (args) => {
   // repos
@@ -98,17 +100,18 @@ const AppFactory = (args) => {
   });
 
   //products route handlers
-  app.get('/admin/products', async (req, res) => {
+  app.get('/admin/products', requireAuth, async (req, res) => {
     const products = await productsService.listAllProducts();
     res.send(productsIndexTemplate({ products }));
   });
 
-  app.get('/admin/products/new', async (req, res) => {
+  app.get('/admin/products/new', requireAuth, async (req, res) => {
     res.send(productsNewTemplate({}));
   });
 
   app.post(
     '/admin/products/new',
+    requireAuth,
     upload.single('image'),
     [parseTitle, parsePrice, requireImage],
     async (req, res) => {
