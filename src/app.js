@@ -135,7 +135,8 @@ const AppFactory = (args) => {
         }
       }
 
-      return res.send(`Submitted ${product.id}`);
+      //return res.send(`Submitted ${product.id}`);
+      res.redirect('/admin/products');
     },
   );
 

@@ -202,12 +202,12 @@ describe('sign up', () => {
       jest.clearAllMocks();
     });
 
-    test("then: we return 'User id created!!!'", async () => {
+    test('then: we redirect to list of products', async () => {
       const status = rsp.status;
-      expect(status).toBe(200);
+      expect(status).toBe(302);
 
       const text = rsp.text;
-      expect(text).toBe(`User ${id} created!!!`);
+      expect(text).toBe('Found. Redirecting to /admin/products');
 
       expect(rsp.get('Set-Cookie').length).not.toBe(0);
 

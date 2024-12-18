@@ -69,7 +69,7 @@ exports[`create new product when: the db already contains that product then: we 
   "
 `;
 
-exports[`create new product when: the db does not contain the product AND the price is a valid float then: we return 'Submitted!' 1`] = `"Submitted 1221"`;
+exports[`create new product when: the db does not contain the product AND the price is a valid float then: we redirect to products list 1`] = `"Found. Redirecting to /admin/products"`;
 
 exports[`create new product when: the user passes in a title and a valid price but no image then: we return "Please upload an image" 1`] = `
 "
