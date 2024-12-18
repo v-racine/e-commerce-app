@@ -117,7 +117,7 @@ describe('sign in', () => {
       jest.clearAllMocks();
     });
 
-    test("then: we redirect to products list", async () => {
+    test('then: we redirect to products list', async () => {
       const status = rsp.status;
       expect(status).toBe(302);
 
