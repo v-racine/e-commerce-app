@@ -4,12 +4,35 @@ Config.Get(process.env);
 
 const AppFactory = require('../src/app');
 const request = require('supertest');
+const { signupHelper } = require('./testUtils/signupHelper');
 
 describe('list all products', () => {
   const mockProductsRepo = {};
+  const mockUsersRepo = {};
 
   const app = AppFactory({
     productsRepo: mockProductsRepo,
+    usersRepo: mockUsersRepo,
+  });
+
+  describe('when: the user wants to view all products but is not signed in', () => {
+    let rsp;
+
+    beforeEach(async () => {
+      rsp = await request(app).get('/admin/products').send();
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    test('then: we redirect to sign-in page', async () => {
+      const text = rsp.text;
+      expect(text).toMatchSnapshot();
+
+      const status = rsp.status;
+      expect(status).toBe(302);
+    });
   });
 
   describe('when: the user wants to view all products', () => {
@@ -31,7 +54,9 @@ describe('list all products', () => {
         });
       });
 
-      rsp = await request(app).get('/admin/products').send();
+      const cookie = await signupHelper(mockUsersRepo, app);
+
+      rsp = await request(app).get('/admin/products').set('Cookie', cookie).send();
     });
 
     afterEach(() => {

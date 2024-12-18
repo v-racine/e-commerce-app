@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`list all products when: the user wants to view all products but is not signed in then: we redirect to sign-in page 1`] = `"Found. Redirecting to /signin"`;
+
 exports[`list all products when: the user wants to view all products then: we return a list of all the products' titles 1`] = `
 "
     <!DOCTYPE html>
