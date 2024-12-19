@@ -53,9 +53,9 @@ exports[`list all products when: the user wants to view all products then: we re
           
       <tr>
         <td>product1</td>
-        <td>undefined</td>
+        <td>12.00</td>
         <td>
-          <a href="">
+          <a href="/admin/products/1234/edit">
             <button class="button is-link">
               Edit
             </button>
@@ -68,9 +68,9 @@ exports[`list all products when: the user wants to view all products then: we re
     
       <tr>
         <td>product2</td>
-        <td>undefined</td>
+        <td>101000.00</td>
         <td>
-          <a href="">
+          <a href="/admin/products/12345/edit">
             <button class="button is-link">
               Edit
             </button>

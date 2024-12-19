@@ -6,7 +6,11 @@ const multer = require('multer');
 const { HealthService } = require('./services/healthService');
 const { HealthController } = require('./controllers/healthController');
 const { UsersService } = require('./services/usersService');
-const { ProductsService, ErrProductIsNotNew } = require('./services/productsService');
+const {
+  ProductsService,
+  ErrProductIsNotNew,
+  ErrProductNotFound,
+} = require('./services/productsService');
 const { CreateUserController } = require('./controllers/createUserController');
 const { SignInController } = require('./controllers/signInController');
 
@@ -14,6 +18,7 @@ const signupTemplate = require('./views/admin/auth/signup');
 const signinTemplate = require('./views/admin/auth/signin');
 const productsNewTemplate = require('./views/admin/products/new');
 const productsIndexTemplate = require('./views/admin/products/index');
+const productsEditTemplate = require('./views/admin/products/edit');
 
 const {
   parseEmail,
@@ -142,6 +147,25 @@ const AppFactory = (args) => {
       res.redirect('/admin/products');
     },
   );
+
+  app.get('/admin/products/:id/edit', requireAuth, async (req, res) => {
+    let product;
+
+    try {
+      product = await productsService.editProduct(req.params.id);
+    } catch (err) {
+      if (err instanceof ErrProductNotFound) {
+        return res.send(`${err.message}`);
+      } else {
+        console.log(`failed to create new product: ${err}`);
+        return res.send('Internal server error');
+      }
+    }
+
+    return res.send(productsEditTemplate({ product }));
+  });
+
+  app.post('/admin/products/:id/edit', requireAuth, async (req, res) => {});
 
   return app;
 };
