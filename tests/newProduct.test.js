@@ -163,6 +163,7 @@ describe('create new product', () => {
 
       rsp = await request(app)
         .post('/admin/products/new')
+        .set('Connection', 'Keep-Alive')
         .field('title', 'testing')
         .field('price', '21.21')
         .attach('image', `${__dirname}/images/image.png`);

@@ -27,6 +27,10 @@ class ProductsService {
   async listAllProducts() {
     return await this.productsRepo.getAll();
   }
+
+  async editProduct(id) {
+    return await this.productsRepo.getOne(id);
+  }
 }
 
 module.exports = {

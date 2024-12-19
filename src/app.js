@@ -14,6 +14,7 @@ const signupTemplate = require('./views/admin/auth/signup');
 const signinTemplate = require('./views/admin/auth/signin');
 const productsNewTemplate = require('./views/admin/products/new');
 const productsIndexTemplate = require('./views/admin/products/index');
+const productsEditTemplate = require('./views/admin/products/edit');
 
 const {
   parseEmail,
@@ -142,6 +143,18 @@ const AppFactory = (args) => {
       res.redirect('/admin/products');
     },
   );
+
+  app.get('/admin/products/:id/edit', requireAuth, async (req, res) => {
+    const product = await productsService.editProduct(req.params.id);
+
+    if (!product) {
+      return res.send('Product not found');
+    }
+
+    return res.send(productsEditTemplate({ product }));
+  });
+
+  app.post('/admin/products/:id/edit', requireAuth, async (req, res) => {});
 
   return app;
 };
