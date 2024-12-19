@@ -6,7 +6,11 @@ const multer = require('multer');
 const { HealthService } = require('./services/healthService');
 const { HealthController } = require('./controllers/healthController');
 const { UsersService } = require('./services/usersService');
-const { ProductsService, ErrProductIsNotNew } = require('./services/productsService');
+const {
+  ProductsService,
+  ErrProductIsNotNew,
+  ErrProductNotFound,
+} = require('./services/productsService');
 const { CreateUserController } = require('./controllers/createUserController');
 const { SignInController } = require('./controllers/signInController');
 
@@ -145,10 +149,17 @@ const AppFactory = (args) => {
   );
 
   app.get('/admin/products/:id/edit', requireAuth, async (req, res) => {
-    const product = await productsService.editProduct(req.params.id);
+    let product;
 
-    if (!product) {
-      return res.send('Product not found');
+    try {
+      product = await productsService.editProduct(req.params.id);
+    } catch (err) {
+      if (err instanceof ErrProductNotFound) {
+        return res.send(`${err.message}`);
+      } else {
+        console.log(`failed to create new product: ${err}`);
+        return res.send('Internal server error');
+      }
     }
 
     return res.send(productsEditTemplate({ product }));

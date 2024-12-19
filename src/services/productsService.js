@@ -4,6 +4,12 @@ class ErrProductIsNotNew extends Error {
   }
 }
 
+class ErrProductNotFound extends Error {
+  constructor() {
+    super('Product not found');
+  }
+}
+
 class ProductsService {
   constructor(args) {
     this.productsRepo = args.productsRepo;
@@ -29,11 +35,17 @@ class ProductsService {
   }
 
   async editProduct(id) {
-    return await this.productsRepo.getOne(id);
+    const existingProduct = await this.productsRepo.getOne(id);
+    if (!existingProduct) {
+      throw new ErrProductNotFound();
+    }
+
+    return existingProduct;
   }
 }
 
 module.exports = {
   ProductsService,
   ErrProductIsNotNew,
+  ErrProductNotFound,
 };
