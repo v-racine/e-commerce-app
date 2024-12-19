@@ -40,10 +40,14 @@ describe('list all products', () => {
 
     let products = [
       {
+        id: '1234',
         title: 'product1',
+        price: '12.00',
       },
       {
+        id: '12345',
         title: 'product2',
+        price: '101000.00',
       },
     ];
 
@@ -66,6 +70,8 @@ describe('list all products', () => {
     test("then: we return a list of all the products' titles", async () => {
       const text = rsp.text;
       expect(text).toMatchSnapshot();
+
+      expect(mockProductsRepo.getAll).toHaveBeenCalledTimes(1);
 
       const status = rsp.status;
       expect(status).toBe(200);
