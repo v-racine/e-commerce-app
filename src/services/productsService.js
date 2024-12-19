@@ -44,7 +44,11 @@ class ProductsService {
   }
 
   async updateProduct(id, attrs) {
-    return await this.productsRepo.update(id, attrs);
+    const existingProduct = await this.retrieveProduct(id);
+
+    Object.assign(existingProduct, attrs);
+
+    await this.productsRepo.update(id, existingProduct);
   }
 }
 

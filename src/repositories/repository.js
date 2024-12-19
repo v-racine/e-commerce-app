@@ -54,15 +54,13 @@ module.exports = class Repository {
     await this.writeAll(filteredRecords);
   }
 
-  async update(id, attrs) {
+  async update(id, newObj) {
     const records = await this.getAll();
+
     const record = records.find((record) => record.id === id);
 
-    if (!record) {
-      throw new Error(`Record with id ${id} not found`);
-    }
+    Object.assign(record, newObj);
 
-    Object.assign(record, attrs);
     await this.writeAll(records);
   }
 

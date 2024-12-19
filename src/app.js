@@ -187,7 +187,12 @@ const AppFactory = (args) => {
       try {
         await productsService.updateProduct(req.params.id, changes);
       } catch (err) {
-        return res.send('Could not find item');
+        if (err instanceof ErrProductNotFound) {
+          return res.send(`${err.message}`);
+        } else {
+          console.log(`failed to create new product: ${err}`);
+          return res.send('Internal server error');
+        }
       }
 
       res.redirect('/admin/products');
