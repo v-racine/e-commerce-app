@@ -62,7 +62,9 @@ exports[`list all products when: the user wants to view all products then: we re
           </a>
         </td>
         <td>
-          <button class="button is-danger">Delete</button>
+          <form method="POST" action="/admin/products/1234/delete">
+            <button class="button is-danger">Delete</button>
+          </form>
         </td>
       </tr>
     
@@ -77,7 +79,9 @@ exports[`list all products when: the user wants to view all products then: we re
           </a>
         </td>
         <td>
-          <button class="button is-danger">Delete</button>
+          <form method="POST" action="/admin/products/12345/delete">
+            <button class="button is-danger">Delete</button>
+          </form>
         </td>
       </tr>
     
