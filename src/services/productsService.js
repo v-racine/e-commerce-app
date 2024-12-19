@@ -34,13 +34,21 @@ class ProductsService {
     return await this.productsRepo.getAll();
   }
 
-  async editProduct(id) {
+  async retrieveProduct(id) {
     const existingProduct = await this.productsRepo.getOne(id);
     if (!existingProduct) {
       throw new ErrProductNotFound();
     }
 
     return existingProduct;
+  }
+
+  async updateProduct(id, attrs) {
+    const existingProduct = await this.retrieveProduct(id);
+
+    Object.assign(existingProduct, attrs);
+
+    await this.productsRepo.update(id, existingProduct);
   }
 }
 
