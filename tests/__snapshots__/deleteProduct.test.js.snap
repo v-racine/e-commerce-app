@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`edit a product when: the user successfully deletes an existing product then: we delete the product from the db AND redirect to products page 1`] = `"Found. Redirecting to /admin/products"`;
+
+exports[`edit a product when: the user wants to delete a product but is not signed in then: we redirect to sign-in page 1`] = `"Found. Redirecting to /signin"`;

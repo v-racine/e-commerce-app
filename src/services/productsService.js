@@ -50,6 +50,10 @@ class ProductsService {
 
     await this.productsRepo.update(id, existingProduct);
   }
+
+  async deleteProduct(id) {
+    return await this.productsRepo.delete(id);
+  }
 }
 
 module.exports = {

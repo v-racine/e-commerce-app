@@ -190,7 +190,7 @@ const AppFactory = (args) => {
         if (err instanceof ErrProductNotFound) {
           return res.send(`${err.message}`);
         } else {
-          console.log(`failed to create new product: ${err}`);
+          console.log(`failed to update new product: ${err}`);
           return res.send('Internal server error');
         }
       }
@@ -198,6 +198,17 @@ const AppFactory = (args) => {
       res.redirect('/admin/products');
     },
   );
+
+  app.post('/admin/products/:id/delete', requireAuth, async (req, res) => {
+    try {
+      await productsService.deleteProduct(req.params.id);
+    } catch (err) {
+      console.log(`failed to delete product ${req.params.id}: ${err}`);
+      return res.status(500).send('Internal server error');
+    }
+
+    res.redirect('/admin/products');
+  });
 
   return app;
 };
