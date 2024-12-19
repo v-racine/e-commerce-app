@@ -152,7 +152,7 @@ const AppFactory = (args) => {
     let product;
 
     try {
-      product = await productsService.editProduct(req.params.id);
+      product = await productsService.retrieveProduct(req.params.id);
     } catch (err) {
       if (err instanceof ErrProductNotFound) {
         return res.send(`${err.message}`);
@@ -165,7 +165,34 @@ const AppFactory = (args) => {
     return res.send(productsEditTemplate({ product }));
   });
 
-  app.post('/admin/products/:id/edit', requireAuth, async (req, res) => {});
+  app.post(
+    '/admin/products/:id/edit',
+    requireAuth,
+    upload.single('image'),
+    [parseTitle, parsePrice],
+    async (req, res) => {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        const product = await productsService.retrieveProduct(req.params.id);
+        return res.send(productsEditTemplate({ errors, product }));
+      }
+
+      const changes = req.body;
+
+      if (req.file) {
+        changes.image = req.file.buffer.toString('base64');
+      }
+
+      try {
+        await productsService.updateProduct(req.params.id, changes);
+      } catch (err) {
+        return res.send('Could not find item');
+      }
+
+      res.redirect('/admin/products');
+    },
+  );
 
   return app;
 };
