@@ -5,11 +5,13 @@ Config.Get(process.env);
 const AppFactory = require('./app');
 const usersRepo = require('./repositories/usersRepoJSON');
 const productsRepo = require('./repositories/productsRepoJSON');
+const cartsRepo = require('./repositories/cartsRepo');
 //const bodyParser = require("body-parser");
 
 const app = AppFactory({
   usersRepo: usersRepo,
   productsRepo: productsRepo,
+  cartsRepo: cartsRepo,
 });
 
 //listener
