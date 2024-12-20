@@ -40,7 +40,7 @@ const AppFactory = (args) => {
   const healthService = new HealthService({ usersRepo });
   const usersService = new UsersService({ usersRepo });
   const productsService = new ProductsService({ productsRepo });
-  ``;
+
   // create server + middlewares
   const upload = multer({ storage: multer.memoryStorage() });
   const app = express();
