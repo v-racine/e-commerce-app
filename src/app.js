@@ -11,6 +11,7 @@ const {
   ErrProductIsNotNew,
   ErrProductNotFound,
 } = require('./services/productsService');
+const { CartsService } = require('./services/cartsService');
 const { CreateUserController } = require('./controllers/createUserController');
 const { SignInController } = require('./controllers/signInController');
 
@@ -30,6 +31,7 @@ const {
   requireImage,
 } = require('./middlewares/parsers');
 const { requireAuth } = require('./middlewares/authenticator');
+const cartsRepo = require('./repositories/cartsRepo');
 
 const AppFactory = (args) => {
   // repos
@@ -40,6 +42,7 @@ const AppFactory = (args) => {
   const healthService = new HealthService({ usersRepo });
   const usersService = new UsersService({ usersRepo });
   const productsService = new ProductsService({ productsRepo });
+  const cartsService = new CartsService({ cartsRepo });
 
   // create server + middlewares
   const upload = multer({ storage: multer.memoryStorage() });
@@ -212,6 +215,17 @@ const AppFactory = (args) => {
     const products = await productsService.listAllProducts();
     res.send(productIndexTemplate({ products }));
   });
+
+  //carts route handlers
+
+  //handler for "add to cart" feature
+  app.post('', async (req, res) => {});
+
+  //handler for "view all items in shopping cart" feature
+  app.get('', async (req, res) => {});
+
+  //handler for "remove an item from shopping cart" feature
+  app.post('', async (req, res) => {});
 
   return app;
 };
