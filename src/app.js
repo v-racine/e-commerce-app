@@ -11,7 +11,6 @@ const {
   ErrProductIsNotNew,
   ErrProductNotFound,
 } = require('./services/productsService');
-const { UsersProductsService } = require('./services/usersProductsService');
 const { CreateUserController } = require('./controllers/createUserController');
 const { SignInController } = require('./controllers/signInController');
 
@@ -41,8 +40,7 @@ const AppFactory = (args) => {
   const healthService = new HealthService({ usersRepo });
   const usersService = new UsersService({ usersRepo });
   const productsService = new ProductsService({ productsRepo });
-  const usersProductsService = new UsersProductsService({ productsRepo });
-
+  ``;
   // create server + middlewares
   const upload = multer({ storage: multer.memoryStorage() });
   const app = express();
@@ -211,7 +209,7 @@ const AppFactory = (args) => {
 
   //users products route handlers
   app.get('/', async (req, res) => {
-    const products = await usersProductsService.listAllProducts();
+    const products = await productsService.listAllProducts();
     res.send(productIndexTemplate({ products }));
   });
 
