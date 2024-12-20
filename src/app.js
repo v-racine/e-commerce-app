@@ -19,6 +19,7 @@ const signinTemplate = require('./views/admin/auth/signin');
 const productsNewTemplate = require('./views/admin/products/new');
 const productsIndexTemplate = require('./views/admin/products/index');
 const productsEditTemplate = require('./views/admin/products/edit');
+const productIndexTemplate = require('./views/usersProducts/index');
 
 const {
   parseEmail,
@@ -66,10 +67,6 @@ const AppFactory = (args) => {
   });
 
   // admin route handlers
-  app.get('/', (req, res) => {
-    res.redirect('/signup');
-  });
-
   app.get('/signup', (req, res) => {
     res.send(signupTemplate({ req }));
   });
@@ -104,7 +101,7 @@ const AppFactory = (args) => {
     return signInController.execute(req, res);
   });
 
-  //products route handlers
+  //admin products route handlers
   app.get('/admin/products', requireAuth, async (req, res) => {
     const products = await productsService.listAllProducts();
     res.send(productsIndexTemplate({ products }));
@@ -208,6 +205,12 @@ const AppFactory = (args) => {
     }
 
     res.redirect('/admin/products');
+  });
+
+  //users products route handlers
+  app.get('/', async (req, res) => {
+    const products = await productsService.listAllProducts();
+    res.send(productIndexTemplate({ products }));
   });
 
   return app;
