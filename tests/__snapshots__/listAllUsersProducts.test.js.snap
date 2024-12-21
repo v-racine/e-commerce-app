@@ -89,6 +89,7 @@ exports[`list all products when: users want to view all products on the homepage
             </div>
             <footer class="card-footer">
               <form action="/cart/products" method="POST">
+                <input hidden value="1234" name="productId" />
                 <button class="button has-icon is-inverted">
                   <i class="fa fa-shopping-cart"></i> Add to cart
                 </button>
@@ -109,6 +110,7 @@ exports[`list all products when: users want to view all products on the homepage
             </div>
             <footer class="card-footer">
               <form action="/cart/products" method="POST">
+                <input hidden value="12345" name="productId" />
                 <button class="button has-icon is-inverted">
                   <i class="fa fa-shopping-cart"></i> Add to cart
                 </button>
