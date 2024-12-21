@@ -21,6 +21,7 @@ const productsNewTemplate = require('./views/admin/products/new');
 const productsIndexTemplate = require('./views/admin/products/index');
 const productsEditTemplate = require('./views/admin/products/edit');
 const productIndexTemplate = require('./views/usersProducts/index');
+const cartShowTemplate = require('./views/carts/show');
 
 const {
   parseEmail,
@@ -31,12 +32,12 @@ const {
   requireImage,
 } = require('./middlewares/parsers');
 const { requireAuth } = require('./middlewares/authenticator');
-const cartsRepo = require('./repositories/cartsRepo');
 
 const AppFactory = (args) => {
   // repos
   const usersRepo = args.usersRepo;
   const productsRepo = args.productsRepo;
+  const cartsRepo = args.cartsRepo;
 
   // services (business logic layer)
   const healthService = new HealthService({ usersRepo });
@@ -218,14 +219,75 @@ const AppFactory = (args) => {
 
   //carts route handlers
 
-  //handler for "add to cart" feature
-  app.post('', async (req, res) => {});
+  app.post('/cart', async (req, res) => {
+    const cart = await cartsService.createCart();
 
-  //handler for "view all items in shopping cart" feature
-  app.get('', async (req, res) => {});
+    req.session.cartId = cart.id;
+
+    res.status(201).send('cart created, monsieur Rosencrantz');
+  });
+
+  //handler for "add to cart" feature =>
+  app.post('/cart/products', async (req, res) => {
+    let cart;
+
+    //figure out if user has a cart OR we need to create one
+    if (!req.session.cartId) {
+      //user does not have a cart, so we need to create one AND store the cart id on the user's cookie (i.e. on the `req.session.cardId` property)
+      cart = await cartsService.createCart();
+      req.session.cartId = cart.id;
+    } else {
+      //user has a cart! we need to retrieve it from the repo
+      cart = await cartsService.retrieveCart(req.session.cartId);
+    }
+
+    //increment quantity of an exisiting product in user's cart OR add a new product to `items` array in user's cart
+    const existingItem = cart.items.find((item) => item.id === req.body.productId);
+    if (existingItem) {
+      //increment quantity and save cart
+      existingItem.quantity += 1;
+    } else {
+      //add new product id to the `items` array
+      cart.items.push({ id: req.body.productId, quantity: 1 });
+    }
+
+    await cartsService.updateCart(cart.id, { items: cart.items });
+
+    res.redirect('/cart');
+  });
+
+  //handler for "view all items in shopping cart" feature =>
+  app.get('/cart', async (req, res) => {
+    //if user does NOT have a cart, redirect
+    if (!req.session.cartId) {
+      return res.redirect('/');
+    }
+
+    //retrieve cart
+    const cart = await cartsService.retrieveCart(req.session.cartId);
+
+    for (let item of cart.items) {
+      //item === {id: ..., quantity: ...}
+      const product = await productsService.retrieveProduct(item.id);
+      item.product = product;
+    }
+
+    res.send(cartShowTemplate({ items: cart.items }));
+  });
 
   //handler for "remove an item from shopping cart" feature
-  app.post('', async (req, res) => {});
+  app.post('/cart/products/delete', async (req, res) => {
+    const { itemId } = req.body;
+
+    const cart = await cartsService.retrieveCart(req.session.cartId);
+
+    //filtering out the item that is to be deleted from the `items` array
+    const items = cart.items.filter((item) => item.id !== itemId);
+
+    await cartsService.updateCart(req.session.cartId, { items: items });
+
+    res.redirect('/cart');
+  });
 
   return app;
 };
