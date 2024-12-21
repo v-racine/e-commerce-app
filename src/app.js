@@ -32,12 +32,12 @@ const {
   requireImage,
 } = require('./middlewares/parsers');
 const { requireAuth } = require('./middlewares/authenticator');
-const cartsRepo = require('./repositories/cartsRepo');
 
 const AppFactory = (args) => {
   // repos
   const usersRepo = args.usersRepo;
   const productsRepo = args.productsRepo;
+  const cartsRepo = args.cartsRepo;
 
   // services (business logic layer)
   const healthService = new HealthService({ usersRepo });
@@ -219,6 +219,14 @@ const AppFactory = (args) => {
 
   //carts route handlers
 
+  app.post('/cart', async (req, res) => {
+    const cart = await cartsService.createCart();
+
+    req.session.cartId = cart.id;
+
+    res.status(201).send('cart created, monsieur Rosencrantz');
+  });
+
   //handler for "add to cart" feature =>
   app.post('/cart/products', async (req, res) => {
     let cart;
@@ -254,7 +262,8 @@ const AppFactory = (args) => {
     if (!req.session.cartId) {
       return res.redirect('/');
     }
-    //if user has a cart, retrieve it
+
+    //retrieve cart
     const cart = await cartsService.retrieveCart(req.session.cartId);
 
     for (let item of cart.items) {
@@ -262,12 +271,14 @@ const AppFactory = (args) => {
       const product = await productsService.retrieveProduct(item.id);
       item.product = product;
     }
+
     res.send(cartShowTemplate({ items: cart.items }));
   });
 
   //handler for "remove an item from shopping cart" feature
   app.post('/cart/products/delete', async (req, res) => {
     const { itemId } = req.body;
+
     const cart = await cartsService.retrieveCart(req.session.cartId);
 
     //filtering out the item that is to be deleted from the `items` array
