@@ -229,29 +229,13 @@ const AppFactory = (args) => {
 
   //handler for "add to cart" feature =>
   app.post('/cart/products', async (req, res) => {
-    let cart;
+    const cartId = req.session.cartId;
 
-    //figure out if user has a cart OR we need to create one
-    if (!req.session.cartId) {
-      //user does not have a cart, so we need to create one AND store the cart id on the user's cookie (i.e. on the `req.session.cardId` property)
-      cart = await cartsService.createCart();
-      req.session.cartId = cart.id;
-    } else {
-      //user has a cart! we need to retrieve it from the repo
-      cart = await cartsService.retrieveCart(req.session.cartId);
-    }
+    const productId = req.body.productId;
 
-    //increment quantity of an exisiting product in user's cart OR add a new product to `items` array in user's cart
-    const existingItem = cart.items.find((item) => item.id === req.body.productId);
-    if (existingItem) {
-      //increment quantity and save cart
-      existingItem.quantity += 1;
-    } else {
-      //add new product id to the `items` array
-      cart.items.push({ id: req.body.productId, quantity: 1 });
-    }
+    const cart = await cartsService.upsertCart(cartId, productId);
 
-    await cartsService.updateCart(cart.id, { items: cart.items });
+    req.session.cartId = cart.id;
 
     res.redirect('/cart');
   });
