@@ -257,12 +257,9 @@ const AppFactory = (args) => {
   app.post('/cart/products/delete', async (req, res) => {
     const { itemId } = req.body;
 
-    const cart = await cartsService.retrieveCart(req.session.cartId);
+    const cartId = req.session.cartId;
 
-    //filtering out the item that is to be deleted from the `items` array
-    const items = cart.items.filter((item) => item.id !== itemId);
-
-    await cartsService.updateCart(req.session.cartId, { items: items });
+    await cartsService.deleteFromCart(cartId, itemId);
 
     res.redirect('/cart');
   });

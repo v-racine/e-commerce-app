@@ -58,6 +58,15 @@ class CartsService {
 
     return cart;
   }
+
+  async deleteFromCart(cartId, itemId) {
+    const cart = await this.retrieveCart(cartId);
+
+    //filtering out the item that is to be deleted from the `items` array
+    const items = cart.items.filter((item) => item.id !== itemId);
+
+    await this.updateCart(cartId, { items: items });
+  }
 }
 
 module.exports = {
