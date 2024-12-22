@@ -43,7 +43,7 @@ const AppFactory = (args) => {
   const healthService = new HealthService({ usersRepo });
   const usersService = new UsersService({ usersRepo });
   const productsService = new ProductsService({ productsRepo });
-  const cartsService = new CartsService({ cartsRepo });
+  const cartsService = new CartsService({ cartsRepo, productsRepo });
 
   // create server + middlewares
   const upload = multer({ storage: multer.memoryStorage() });
@@ -248,13 +248,7 @@ const AppFactory = (args) => {
     }
 
     //retrieve cart
-    const cart = await cartsService.retrieveCart(req.session.cartId);
-
-    for (let item of cart.items) {
-      //item === {id: ..., quantity: ...}
-      const product = await productsService.retrieveProduct(item.id);
-      item.product = product;
-    }
+    const cart = await cartsService.showCart(req.session.cartId);
 
     res.send(cartShowTemplate({ items: cart.items }));
   });
