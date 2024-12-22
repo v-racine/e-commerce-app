@@ -1,6 +1,7 @@
 class CartsService {
   constructor(args) {
     this.cartsRepo = args.cartsRepo;
+    this.productsRepo = args.productsRepo;
   }
 
   async createCart() {
@@ -11,6 +12,10 @@ class CartsService {
     return await this.cartsRepo.getOne(id);
   }
 
+  async retrieveProduct(id) {
+    return await this.productsRepo.getOne(id);
+  }
+
   async updateCart(id, newObj) {
     return await this.cartsRepo.update(id, newObj);
   }
@@ -18,9 +23,8 @@ class CartsService {
   async upsertCart(cartId, productId) {
     let cart;
 
-    //figure out if user has a cart OR we need to create one
     if (!cartId) {
-      //user does not have a cart, so we need to create one AND store the cart id on the user's cookie (i.e. on the `req.session.cardId` property)
+      //user does not have a cart, so we need to create one
       cart = await this.createCart();
     } else {
       //user has a cart! we need to retrieve it from the repo
@@ -38,6 +42,19 @@ class CartsService {
     }
 
     await this.updateCart(cart.id, { items: cart.items });
+
+    return cart;
+  }
+
+  async showCart(cartId) {
+    const cart = await this.retrieveCart(cartId);
+
+    for (let item of cart.items) {
+      //item === {id: ..., quantity: ...}
+      const product = await this.retrieveProduct(item.id);
+
+      item.product = product;
+    }
 
     return cart;
   }
