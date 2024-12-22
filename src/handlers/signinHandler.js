@@ -1,13 +1,27 @@
 const { ErrEmailNotFound, ErrInvalidPassword } = require('../services/usersService');
-const { BaseController } = require('./baseController');
+const { BaseHandler: BaseHandler } = require('./baseHandler');
+const signinTemplate = require('../views/admin/auth/signin');
+const { validationResult } = require('express-validator'); //middleware library
 
-class SignInController extends BaseController {
+class SigninHandler extends BaseHandler {
   constructor(args) {
     super();
     this.usersService = args.usersService;
+    this.get = this.get.bind(this);
+    this.post = this.post.bind(this);
   }
 
-  async execute(req, res) {
+  async get(req, res) {
+    res.send(signinTemplate({}));
+  }
+
+  async post(req, res) {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.send(signinTemplate({ errors }));
+    }
+
     const { email, password } = req.body;
 
     let user;
@@ -30,4 +44,4 @@ class SignInController extends BaseController {
   }
 }
 
-module.exports = { SignInController };
+module.exports = { SigninHandler: SigninHandler };
