@@ -1,7 +1,9 @@
 const { ErrEmailInUse, ErrPasswordMisMatch } = require('../services/usersService');
-const { BaseController } = require('./baseController');
+const { BaseHandler: BaseHandler } = require('./baseHandler');
+const signupTemplate = require('../views/admin/auth/signup');
+const { validationResult } = require('express-validator'); //middleware library
 
-class CreateUserController extends BaseController {
+class SignupHandler extends BaseHandler {
   /**
    * constructor expects the following
    * - usersService: instance of usersService
@@ -10,9 +12,21 @@ class CreateUserController extends BaseController {
   constructor(args) {
     super();
     this.usersService = args.usersService;
+    this.post = this.post.bind(this);
+    this.get = this.get.bind(this);
   }
 
-  async execute(req, res) {
+  async get(req, res) {
+    res.send(signupTemplate({ req }));
+  }
+
+  async post(req, res) {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.send(signupTemplate({ req, errors }));
+    }
+
     const { email, password, passwordConfirmation } = req.body;
 
     let user;
@@ -35,4 +49,4 @@ class CreateUserController extends BaseController {
   }
 }
 
-module.exports = { CreateUserController };
+module.exports = { SignupHandler: SignupHandler };

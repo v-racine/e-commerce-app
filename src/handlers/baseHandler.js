@@ -1,4 +1,4 @@
-class BaseController {
+class BaseHandler {
   ok(res, data) {
     return this.jsonResponse(res, 200, data);
   }
@@ -13,4 +13,4 @@ class BaseController {
   }
 }
 
-module.exports = { BaseController };
+module.exports = { BaseHandler: BaseHandler };

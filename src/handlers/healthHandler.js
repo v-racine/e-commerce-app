@@ -1,12 +1,13 @@
-const { BaseController } = require('./baseController');
+const { BaseHandler: BaseHandler } = require('./baseHandler');
 
-class HealthController extends BaseController {
+class HealthHandler extends BaseHandler {
   constructor(args) {
     super();
     this.healthService = args.healthService;
+    this.get = this.get.bind(this);
   }
 
-  async execute(_, res) {
+  async get(_, res) {
     const rsp = await this.healthService.canRetrieveData();
 
     return rsp === true
@@ -17,4 +18,4 @@ class HealthController extends BaseController {
   }
 }
 
-module.exports = { HealthController };
+module.exports = { HealthHandler: HealthHandler };
