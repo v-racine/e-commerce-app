@@ -7,12 +7,76 @@ class ProductsRepo extends BaseRepo {
     this.table = table;
   }
 
+  async create(attrs) {
+    const query = `
+      INSERT INTO ${this.table} (title, price, image) 
+      VALUES ($1, $2, $3) 
+      RETURNING * 
+    `;
+
+    const { title, price, image } = attrs;
+
+    const result = await this.dbQuery(query, title, price, image);
+
+    return result.rows[0];
+  }
+
   async getAll() {
-    const query = `SELECT * FROM ${this.table};`;
+    const query = `SELECT * FROM ${this.table} ORDER BY id`;
 
     const result = await this.dbQuery(query);
 
     return result.rows;
+  }
+
+  async getOneBy(filters) {
+    let query = `SELECT * FROM ${this.table} WHERE `;
+
+    const params = [];
+
+    let count = 1;
+
+    const entries = Object.entries(filters);
+
+    const len = entries.length;
+
+    for (const [key, value] of entries) {
+      if (count === len) {
+        query += `${key} = $${count}`;
+      } else {
+        query += `${key} = $${count} AND`;
+      }
+
+      params.push(value);
+
+      count++;
+    }
+
+    const result = await this.dbQuery(query, ...params);
+
+    return result.rows[0]; // an obj or undefined?
+  }
+
+  async getOne(id) {
+    const query = `SELECT * FROM ${this.table} WHERE id = $1`;
+
+    let result = await this.dbQuery(query, id);
+
+    return result.rows[0];
+  }
+
+  async update(id, updatedProduct) {
+    const query = `UPDATE ${this.table} SET title = $1, price = $2, image = $3 WHERE id = $4`;
+
+    const { title, price, image } = updatedProduct;
+
+    await this.dbQuery(query, title, price, image, id);
+  }
+
+  async delete(id) {
+    const query = `DELETE FROM ${this.table} WHERE id = $1`;
+
+    await this.dbQuery(query, id);
   }
 }
 

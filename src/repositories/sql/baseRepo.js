@@ -19,6 +19,7 @@ class BaseRepo {
       return await client.query(statement, parameters);
     } catch (err) {
       console.log('something is broken:', err);
+      //TODO: rethrow?
     } finally {
       client.end();
     }
