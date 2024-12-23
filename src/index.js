@@ -3,14 +3,15 @@ const { Config } = require('./config/config');
 Config.Get(process.env);
 
 const AppFactory = require('./app');
-const usersRepo = require('./repositories/json/usersRepoJSON');
+// const usersRepo = require('./repositories/json/usersRepoJSON');
+const { UsersRepo } = require('./repositories/sql/usersRepo');
 // const productsRepo = require('./repositories/productsRepoJSON');
 const { ProductsRepo } = require('./repositories/sql/productsRepo');
 const cartsRepo = require('./repositories/json/cartsRepo');
 //const bodyParser = require("body-parser");
 
 const app = AppFactory({
-  usersRepo: usersRepo,
+  usersRepo: new UsersRepo('admin_users'),
   productsRepo: new ProductsRepo('products'),
   cartsRepo: cartsRepo,
 });
