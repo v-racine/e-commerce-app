@@ -42,7 +42,7 @@ const AppFactory = (args) => {
   // create server + middlewares
   const upload = multer({ storage: multer.memoryStorage() });
   const app = express();
-  app.use(express.static('public'));
+  app.use(express.static('src/public'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(
