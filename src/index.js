@@ -11,7 +11,7 @@ const cartsRepo = require('./repositories/cartsRepo');
 
 const app = AppFactory({
   usersRepo: usersRepo,
-  productsRepo: new ProductsRepo("products"),
+  productsRepo: new ProductsRepo('products'),
   cartsRepo: cartsRepo,
 });
 
