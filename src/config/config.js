@@ -11,9 +11,19 @@ class Config {
     }
 
     this.nodeEnv = 'dev';
+    this.dbServerAddress = 'postgresql://localhost:5432';
+    this.db = 'e-comm';
 
     if (env.NODE_ENV !== undefined) {
       this.nodeEnv = env.NODE_ENV;
+    }
+
+    if (env.DB_STORE_ADDRESS !== undefined) {
+      this.dbServerAddress = env.DB_STORE_ADDRESS;
+    }
+
+    if (env.DB !== undefined) {
+      this.db = env.DB;
     }
 
     Object.freeze(this);
