@@ -29,14 +29,6 @@ class ProductsRepo extends BaseRepo {
     return result.rows;
   }
 
-  async getOne(id) {
-    const query = `SELECT * FROM ${this.table} WHERE id = $1`;
-
-    let result = await this.dbQuery(query, id);
-
-    return result.rows[0];
-  }
-
   async update(id, updatedProduct) {
     const query = `UPDATE ${this.table} SET title = $1, price = $2, image = $3 WHERE id = $4`;
 

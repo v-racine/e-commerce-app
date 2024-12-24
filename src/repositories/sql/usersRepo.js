@@ -9,7 +9,7 @@ class UsersRepo extends BaseRepo {
 
   async create(attrs) {
     const query = `
-      INSERT INTO ${this.table} (email, password ) 
+      INSERT INTO ${this.table} (email, password) 
       VALUES ($1, $2) 
       RETURNING * 
     `;

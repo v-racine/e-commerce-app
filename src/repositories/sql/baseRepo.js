@@ -25,6 +25,14 @@ class BaseRepo {
     }
   }
 
+  async getOne(id) {
+    const query = `SELECT * FROM ${this.table} WHERE id = $1`;
+
+    let result = await this.dbQuery(query, id);
+
+    return result.rows[0];
+  }
+
   async getOneBy(filters) {
     let query = `SELECT * FROM ${this.table} WHERE `;
 

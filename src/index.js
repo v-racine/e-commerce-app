@@ -7,13 +7,14 @@ const AppFactory = require('./app');
 const { UsersRepo } = require('./repositories/sql/usersRepo');
 // const productsRepo = require('./repositories/productsRepoJSON');
 const { ProductsRepo } = require('./repositories/sql/productsRepo');
-const cartsRepo = require('./repositories/json/cartsRepo');
+//const cartsRepo = require('./repositories/json/cartsRepo');
+const { CartsRepo } = require('./repositories/sql/cartsRepo');
 //const bodyParser = require("body-parser");
 
 const app = AppFactory({
   usersRepo: new UsersRepo('admin_users'),
   productsRepo: new ProductsRepo('products'),
-  cartsRepo: cartsRepo,
+  cartsRepo: new CartsRepo('carts', 'products_carts'),
 });
 
 //listener
